@@ -1,0 +1,228 @@
+import hmac
+import hashlib
+import base64
+import json
+
+import jwt
+import requests
+import uuid
+import datetime
+
+from types import ModuleType
+from .constants import URL, HTTP_STATUS_CODE, ERROR_CODE
+
+from . import resources
+
+from .errors import (ServerError)
+
+
+def capitalize_camel_case(string):
+    return "".join(map(str.capitalize, string.split('_')))
+
+
+# Create a dict of resource classes
+RESOURCE_CLASSES = {}
+for name, module in resources.__dict__.items():
+    if isinstance(module, ModuleType) and \
+            capitalize_camel_case(name) in module.__dict__:
+        RESOURCE_CLASSES[name] = module.__dict__[capitalize_camel_case(name)]
+
+
+class Client:
+    """PayPay client class"""
+    DEFAULTS = {
+        'sandbox_base_url': URL.SANDBOX_BASE_URL,
+        'production_base_url': URL.PRODUCTION_BASE_URL
+    }
+
+    def __init__(self,
+                 session=None,
+                 auth=None,
+                 production_mode=False,
+                 **options):
+        """
+        Initialize a Client object with session,
+        optional auth handler, and options
+        """
+        self.session = session or requests.Session()
+        self.auth = auth
+        self.production_mode = production_mode
+
+        self.base_url = self._set_base_url(**options)
+        print("baseURL, " + self.base_url)
+        # intializes each resource
+        # injecting this client object into the constructor
+        for name, Klass in RESOURCE_CLASSES.items():
+            setattr(self, name, Klass(self))
+
+    def _set_base_url(self, **options):
+        if self.production_mode is False:
+            base_url = self.DEFAULTS['sandbox_base_url']
+        if self.production_mode is True:
+            base_url = self.DEFAULTS['production_base_url']
+        if 'base_url' in options:
+            base_url = options['base_url']
+            del (options['base_url'])
+        return base_url
+
+    def encode_jwt(self, secret=str, scope="direct_debit",
+                   redirect_url=None,
+                   reference_id=str(uuid.uuid4())[:8],
+                   device_id="", phone_number=""):
+        jwt_data = {
+            "aud": 'paypay.ne.jp',
+            "iss": 'merchant',
+            "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=5),
+            "scope": scope,
+            "nonce": str(uuid.uuid4())[:8],
+            "redirectUrl": redirect_url,
+            "referenceId": reference_id,
+            "deviceId": device_id,
+            "phoneNumber": phone_number
+        }
+        encoded = jwt.encode(jwt_data,
+                             base64.b64decode(secret),
+                             algorithm='HS256')
+        return encoded
+
+    def decode_jwt(self, secret, token):
+        try:
+            ca = jwt.decode(token, secret, verify=False)
+            return ca.get('userAuthorizationId'), ca.get('referenceId')
+        except Exception as e:
+            print("JWT Signature verification failed: ", e)
+
+    def auth_header(self, api_key, api_secret,
+                    method, resource, content_type="empty",
+                    request_body=None):
+        auth_type = 'hmac OPA-Auth'
+        nonce = str(uuid.uuid4())[:8]
+        timestamp = str(int(datetime.datetime.now().timestamp()))
+        body_hash = "empty"
+        if request_body is not None:
+            hashed_body = hashlib.md5()
+            hashed_body.update(content_type.encode("utf-8"))
+            hashed_body.update(request_body.encode("utf-8"))
+            body_hash = base64.b64encode(hashed_body.digest())
+        if body_hash != "empty":
+            body_hash = body_hash.decode()
+        signature_list = "\n".join([resource,
+                                    method,
+                                    nonce,
+                                    timestamp,
+                                    content_type,
+                                    body_hash])
+        hmac_data = hmac.new(api_secret.encode("utf-8"),
+                             signature_list.encode("utf-8"),
+                             digestmod=hashlib.sha256)
+        hmac_base64 = base64.b64encode(hmac_data.digest())
+        header_list = [api_key,
+                       hmac_base64.decode("utf-8"),
+                       nonce, timestamp,
+                       body_hash]
+        header = ":".join(header_list)
+        return "{}:{}".format(auth_type, header)
+
+    def request(self, method, path, auth_header, **options):
+        """
+        Dispatches a request to the PayPay HTTP API
+        """
+        url = "{}{}".format(self.base_url, path)
+        print(auth_header)
+        response = getattr(self.session, method)(url, headers={
+            'Authorization': auth_header,
+            'Content-Type': 'application/json;charset=UTF-8',
+        }, **options)
+        if ((response.status_code >= HTTP_STATUS_CODE.OK) and
+                (response.status_code < HTTP_STATUS_CODE.REDIRECT)):
+            return response.json()
+        else:
+            msg = ""
+            code = ""
+            print(response.status_code)
+            json_response = response.json()
+            print(json_response)
+            if 'resultInfo' in json_response:
+                if 'message' in json_response['resultInfo']:
+                    msg = json_response['resultInfo']['message']
+                if 'code' in json_response['resultInfo']:
+                    code = str(json_response['resultInfo']['code'])
+            elif str.upper(code) == ERROR_CODE.SERVER_ERROR:
+                raise ServerError(msg)
+            else:
+                raise ServerError(msg)
+
+    def get(self, path, params, **options):
+        """
+        Parses GET request options and dispatches a request
+        """
+        method = "GET"
+        data, auth_header = self._update_request(None, path, method, options)
+        return self.request('get',
+                            path,
+                            params=params,
+                            auth_header=auth_header,
+                            **options)
+
+    def post(self, path, data, **options):
+        """
+        Parses POST request options and dispatches a request
+        """
+        method = "POST"
+        data, auth_header = self._update_request(data, path, method, options)
+        return self.request('post',
+                            path,
+                            data=data,
+                            auth_header=auth_header,
+                            **options)
+
+    def patch(self, path, data, **options):
+        """
+        Parses PATCH request options and dispatches a request
+        """
+        method = "PATCH"
+        data, auth_header = self._update_request(data, path, method, options)
+        return self.request(method, path, auth_header=auth_header, **options)
+
+    def delete(self, path, data, **options):
+        """
+        Parses DELETE request options and dispatches a request
+        """
+        method = "DELETE"
+        data, auth_header = self._update_request(data, path, method, options)
+        return self.request('delete',
+                            path,
+                            data=data,
+                            auth_header=auth_header,
+                            **options)
+
+    def put(self, path, data, **options):
+        """
+        Parses PUT request options and dispatches a request
+        """
+        method = "PUT"
+        data, auth_header = self._update_request(data, path, method, options)
+        return self.request('put',
+                            path,
+                            data=data,
+                            auth_header=auth_header,
+                            **options)
+
+    def _update_request(self, data, path, method, options):
+        """
+        Updates The resource data and header options
+        """
+        _data = None
+        content_type = "empty"
+        if data is not None:
+            _data = json.dumps(data)
+            content_type = "application/json;charset=UTF-8"
+        uri_path = "/v2" + path
+        _auth_header = self.auth_header(
+                       self.auth[0],
+                       self.auth[1],
+                       method,
+                       uri_path,
+                       content_type,
+                       _data)
+        return _data, _auth_header
