@@ -12,6 +12,7 @@ setup(
     long_description=long_description,
     long_description_content_type='text/markdown',
     author="Team PayPay",
+    author_email="opensource@paypay-corp.co.jp",
     license="Apache 2.0",
     project_urls={
         'Documentation': 'https://github.com/paypay/paypayopa-sdk-python/README.md',
