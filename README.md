@@ -1,6 +1,8 @@
 # Paypay OPA SDK
 [![PyPI Version](https://img.shields.io/pypi/v/paypayopa.svg)](https://pypi.python.org/pypi/paypayopa) 
 [![License](https://img.shields.io/:license-apache2.0-red.svg)](https://opensource.org/licenses/Apache-2.0)
+[![codecov](https://codecov.io/gh/paypay/paypayopa-sdk-python/branch/master/graph/badge.svg)](https://codecov.io/gh/paypay/paypayopa-sdk-python)
+
 
 
 So you are a developer and want to start accepting payments using PayPay. PayPay's Payment SDK is the simplest way to achieve the integration. With PayPay's Payment SDK, you can build a custom Payment checkout process to suit your unique business needs and branding guidelines.
