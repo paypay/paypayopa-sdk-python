@@ -10,7 +10,8 @@ class Code(Resource):
 
     def create_qr_code(self, data={}, **kwargs):
         url = self.base_url
-        data['requestedAt'] = int(datetime.datetime.now().timestamp())
+        if "requestedAt" not in data:
+            data['requestedAt'] = int(datetime.datetime.now().timestamp())
         if "merchantPaymentId" not in data:
             raise ValueError("\x1b[31m MISSING REQUEST PARAMS "
                              "\x1b[0m for merchantPaymentId")
@@ -60,7 +61,8 @@ class Code(Resource):
 
     def capture_payment(self, data={}, **kwargs):
         url = "{}/{}".format('payments', 'capture')
-        data['requestedAt'] = int(datetime.datetime.now().timestamp())
+        if "requestedAt" not in data:
+            data['requestedAt'] = int(datetime.datetime.now().timestamp())
         if "merchantPaymentId" not in data:
             raise ValueError("\x1b[31m MISSING REQUEST PARAMS"
                              " \x1b[0m for merchantPaymentId")
@@ -83,7 +85,8 @@ class Code(Resource):
 
     def revert_payment(self, data={}, **kwargs):
         url = "{}/{}/{}".format('payments', 'preauthorize', 'revert')
-        data['requestedAt'] = int(datetime.datetime.now().timestamp())
+        if "requestedAt" not in data:
+            data['requestedAt'] = int(datetime.datetime.now().timestamp())
         if "merchantRevertId" not in data:
             raise ValueError("\x1b[31m MISSING REQUEST PARAMS"
                              " \x1b[0m for merchantPaymentId")
@@ -94,7 +97,8 @@ class Code(Resource):
 
     def refund_payment(self, data={}, **kwargs):
         url = "/{}".format('refunds')
-        data['requestedAt'] = int(datetime.datetime.now().timestamp())
+        if "requestedAt" not in data:
+            data['requestedAt'] = int(datetime.datetime.now().timestamp())
         if "merchantRefundId" not in data:
             raise ValueError("\x1b[31m MISSING REQUEST PARAMS"
                              " \x1b[0m for merchantPaymentId")
