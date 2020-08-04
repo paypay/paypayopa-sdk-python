@@ -1,16 +1,23 @@
 language: python
-python:
-  - "3"
-  - "3.3"
-  - "3.4"
-  - "3.5"
-  - "3.6"
-  -
+
+matrix:
+  include:
+    - python: "3.4"
+    - python: "3.5"
+    - python: "3.6"
+    - python: "3.7"
+    - python: "3.8"
+    - python: "3.9-dev"
+  allow_failures:
+    - python: "3.9-dev"
+
 install:
   - pip install pytest
   - pip install pytest-cov
   - pip install coveralls
+
 script:
   - pytest --cov=tests/
+
 after_success:
   - coveralls
