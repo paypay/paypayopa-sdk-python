@@ -13,8 +13,10 @@ matrix:
 
 install:
   - pip install pytest
+  - pip install responses
   - pip install pytest-cov
   - pip install coveralls
+  - pip install requests
 
 script:
   - pytest --cov=tests/
