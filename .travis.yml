@@ -17,6 +17,8 @@ install:
   - pip install pytest-cov
   - pip install coveralls
   - pip install requests
+  - pip install pyjwt
+  - pip install uuid
 
 script:
   - pytest --cov=tests/
