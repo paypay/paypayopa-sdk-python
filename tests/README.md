@@ -1,11 +1,11 @@
 # Paypay OPA SDK Test Cases
 
- ## Install pip package
+ ## Install pytest
 ```sh
 $ pip install pytest
 ```
 
- ## Install pip package
+ ## Install unittest
 ```sh
 $ pip install unittest
 ```
