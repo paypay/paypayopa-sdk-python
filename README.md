@@ -1,7 +1,7 @@
 # Paypay OPA SDK
 [![PyPI Version](https://img.shields.io/pypi/v/paypayopa.svg)](https://pypi.python.org/pypi/paypayopa) 
 [![License](https://img.shields.io/:license-apache2.0-red.svg)](https://opensource.org/licenses/Apache-2.0)
-[![codecov](https://codecov.io/gh/paypay/paypayopa-sdk-python/branch/master/graph/badge.svg)](https://codecov.io/gh/paypay/paypayopa-sdk-python)
+[![Coverage Status](https://coveralls.io/repos/github/paypay/paypayopa-sdk-python/badge.svg?branch=feature/testcases)](https://coveralls.io/github/paypay/paypayopa-sdk-python?branch=master)
 
 
 
