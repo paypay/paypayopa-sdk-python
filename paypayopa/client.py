@@ -128,7 +128,6 @@ class Client:
         Dispatches a request to the PayPay HTTP API
         """
         url = "{}{}".format(self.base_url, path)
-        print(auth_header)
         response = getattr(self.session, method)(url, headers={
             'Authorization': auth_header,
             'Content-Type': 'application/json;charset=UTF-8',

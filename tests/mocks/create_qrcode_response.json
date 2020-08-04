@@ -1,0 +1,41 @@
+{
+  "resultInfo": {
+    "code": "string",
+    "message": "string",
+    "codeId": "string"
+  },
+  "data": {
+    "codeId": "string",
+    "url": "string",
+    "deeplink": "string",
+    "expiryDate": 0,
+    "merchantPaymentId": "cb31bcc0-3b6c-46e0-9002-e5c4bb1e3d5f",
+    "amount": {
+      "amount": 1,
+      "currency": "JPY"
+    },
+    "orderDescription": "Example - Mune Cake shop",
+    "orderItems": [
+      {
+        "name": "string",
+        "category": "pasteries",
+        "quantity": 1,
+        "productId": "67678",
+        "unit_price": {
+          "amount": 1,
+          "currency": "JPY"
+        }
+      }
+    ],
+    "metadata": {},
+    "codeType": "ORDER_QR",
+    "storeInfo": "string",
+    "storeId": "string",
+    "terminalId": "string",
+    "requestedAt": 0,
+    "redirectUrl": "http://foobar.com",
+    "redirectType": "WEB_LINK",
+    "isAuthorization": true,
+    "authorizationExpiry": null
+  }
+}

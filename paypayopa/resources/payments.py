@@ -10,7 +10,8 @@ class Payment(Resource):
 
     def create(self, data={}, **kwargs):
         url = "{}/{}".format(self.base_url, 'payments')
-        data['requestedAt'] = int(datetime.datetime.now().timestamp())
+        if "requestedAt" not in data:
+            data['requestedAt'] = int(datetime.datetime.now().timestamp())
         if "merchantPaymentId" not in data:
             raise ValueError("\x1b[31m MISSING REQUEST PARAMS "
                              "\x1b[0m for merchantPaymentId")
@@ -44,7 +45,8 @@ class Payment(Resource):
 
     def refund_payment(self, data={}, **kwargs):
         url = "/{}".format('refunds')
-        data['requestedAt'] = datetime.datetime.now().second
+        if "requestedAt" not in data:
+            data['requestedAt'] = datetime.datetime.now().second
         if "merchantPaymentId" not in data:
             raise ValueError("\x1b[31m MISSING REQUEST PARAMS "
                              "\x1b[0m for merchantPaymentId")
