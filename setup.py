@@ -27,7 +27,7 @@ setup(
     keywords='paypay payment gateway japan',
     classifiers=[
         "Intended Audience :: Developers",
-        "License :: Apache 2.0 License",
+        "License :: OSI Approved :: Apache License, Version 2.0 (Apache-2.0)",
 
         # List of supported Python versions
         # Make sure that this is reflected in .travis.yml as well
