@@ -7,7 +7,7 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name="paypayopa",
-    version="0.3.0",
+    version="0.3.1",
     description="PayPay OPA SDK",
     long_description=long_description,
     long_description_content_type='text/markdown',
@@ -27,7 +27,7 @@ setup(
     keywords='paypay payment gateway japan',
     classifiers=[
         "Intended Audience :: Developers",
-        "License :: OSI Approved :: Apache License, Version 2.0 (Apache-2.0)",
+        "License :: OSI Approved :: Apache Software License",
 
         # List of supported Python versions
         # Make sure that this is reflected in .travis.yml as well
