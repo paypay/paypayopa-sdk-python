@@ -47,6 +47,7 @@ class Client:
         self.session = session or requests.Session()
         self.auth = auth
         self.production_mode = production_mode
+        self.assume_merchant = ""
 
         self.base_url = self._set_base_url(**options)
         print("baseURL, " + self.base_url)
@@ -64,6 +65,10 @@ class Client:
             base_url = options['base_url']
             del (options['base_url'])
         return base_url
+
+    def set_assume_merchant(self, merchant):
+        if(merchant):
+            self.assume_merchant = merchant
 
     def encode_jwt(self, secret=str, scope="direct_debit",
                    redirect_url=None,
@@ -131,6 +136,7 @@ class Client:
         response = getattr(self.session, method)(url, headers={
             'Authorization': auth_header,
             'Content-Type': 'application/json;charset=UTF-8',
+            'X-ASSUME-MERCHANT': self.assume_merchant
         }, **options)
         if ((response.status_code >= HTTP_STATUS_CODE.OK) and
                 (response.status_code < HTTP_STATUS_CODE.REDIRECT)):
