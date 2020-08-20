@@ -6,12 +6,12 @@ class Resource(object):
     def all(self, data, **kwargs):
         return self.get_url(self.base_url, data, **kwargs)
 
-    def fetch(self, id, url, data={}, **kwargs):
+    def fetch(self, id, url=None, data={}, **kwargs):
         if(url):
-            url = url
+            self.url = url
         else:
-            url = "{}/{}".format(self.base_url, id)
-        return self.get_url(url, data, **kwargs)
+            self.url = "{}/{}".format(self.base_url, id)
+        return self.get_url(self.url, data, **kwargs)
 
     def get_url(self, url, data, **kwargs):
         return self.client.get(url, data, **kwargs)
@@ -30,7 +30,7 @@ class Resource(object):
 
     def delete(self, id, url=None, data={}, **kwargs):
         if(url):
-            url = url
+            self.url = url
         else:
-            url = "{}/{}/".format(self.base_url, id)
-        return self.delete_url(url, data, **kwargs)
+            self.url = "{}/{}/".format(self.base_url, id)
+        return self.delete_url(self.url, data, **kwargs)

@@ -152,7 +152,7 @@ class Client:
                     msg = json_response['resultInfo']['message']
                 if 'code' in json_response['resultInfo']:
                     code = str(json_response['resultInfo']['code'])
-            elif str.upper(code) == ERROR_CODE.SERVER_ERROR:
+            if str.upper(code) == ERROR_CODE.SERVER_ERROR:
                 raise ServerError(msg)
             else:
                 raise ServerError(msg)
@@ -222,7 +222,7 @@ class Client:
         if data is not None:
             _data = json.dumps(data)
             content_type = "application/json;charset=UTF-8"
-        uri_path = "/v2" + path
+        uri_path = path
         _auth_header = self.auth_header(
                        self.auth[0],
                        self.auth[1],
