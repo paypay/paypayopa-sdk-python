@@ -1,0 +1,10 @@
+[MASTER]
+# TODO
+disable=
+    missing-module-docstring,
+    import-error,
+    superfluous-parens,
+    missing-function-docstring,
+    redefined-outer-name,
+    invalid-name,
+    too-many-arguments
