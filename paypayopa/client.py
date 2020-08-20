@@ -224,10 +224,10 @@ class Client:
             content_type = "application/json;charset=UTF-8"
         uri_path = path
         _auth_header = self.auth_header(
-                       self.auth[0],
-                       self.auth[1],
-                       method,
-                       uri_path,
-                       content_type,
-                       _data)
+            self.auth[0],
+            self.auth[1],
+            method,
+            uri_path,
+            content_type,
+            _data)
         return _data, _auth_header
