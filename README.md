@@ -5,6 +5,7 @@
 [![Build Status](https://travis-ci.org/paypay/paypayopa-sdk-python.svg?branch=master)](https://travis-ci.org/paypay/paypayopa-sdk-python)
 [![Coverage Status](https://coveralls.io/repos/github/paypay/paypayopa-sdk-python/badge.svg?branch=feature/testcases)](https://coveralls.io/github/paypay/paypayopa-sdk-python?branch=master)
 [![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/paypay/paypayopa-sdk-python.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/paypay/paypayopa-sdk-python/context:python)
+[![Black Duck Security Risk](https://copilot.blackducksoftware.com/github/repos/paypay/paypayopa-sdk-python/branches/master/badge-risk.svg)](https://copilot.blackducksoftware.com/github/repos/paypay/paypayopa-sdk-python/branches/master)
 
 
 
