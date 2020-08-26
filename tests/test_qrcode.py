@@ -3,6 +3,7 @@ import json
 
 from .helpers import mock_file, ClientTestCase
 
+
 class TestClientQRCode(ClientTestCase):
 
     def setUp(self):

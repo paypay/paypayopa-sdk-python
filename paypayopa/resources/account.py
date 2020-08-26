@@ -22,4 +22,3 @@ class Account(Resource):
             raise ValueError("\x1b[31m MISSING REQUEST PARAMS "
                              "\x1b[0m for referenceId")
         return self.post_url(url, data, **kwargs)
-
