@@ -1,3 +1,7 @@
+env:
+  global:
+    - CC_TEST_REPORTER_ID=901d3045718f66236a651e6fb24639a8d66ff4e6f631a76fcee254136b5ffe8b
+
 language: python
 
 matrix:
@@ -19,8 +23,15 @@ install:
   - pip install pyjwt
   - pip install uuid
 
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+
 script:
   - pytest --cov=tests/
 
 after_success:
   - coveralls
+  - bash <(curl -s https://copilot.blackducksoftware.com/ci/travis/scripts/upload)
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
