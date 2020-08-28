@@ -1,7 +1,8 @@
 # Paypay OPA SDK - Python
 
 [![License](https://img.shields.io/:license-apache2.0-red.svg)](https://opensource.org/licenses/Apache-2.0)
-[![PyPI Version](https://img.shields.io/pypi/v/paypayopa.svg)](https://pypi.python.org/pypi/paypayopa) 
+[![PyPI Version](https://img.shields.io/pypi/v/paypayopa.svg)](https://pypi.python.org/pypi/paypayopa) [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fpaypay%2Fpaypayopa-sdk-python.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fpaypay%2Fpaypayopa-sdk-python?ref=badge_shield)
+
 [![Build Status](https://travis-ci.org/paypay/paypayopa-sdk-python.svg?branch=master)](https://travis-ci.org/paypay/paypayopa-sdk-python)
 [![Coverage Status](https://coveralls.io/repos/github/paypay/paypayopa-sdk-python/badge.svg?branch=feature/testcases)](https://coveralls.io/github/paypay/paypayopa-sdk-python?branch=master)
 [![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/paypay/paypayopa-sdk-python.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/paypay/paypayopa-sdk-python/context:python)
@@ -549,3 +550,7 @@ There are two ways to react with this situation:
 |Status	|CodeId	|Code	|Message|
 |---|---|---|---|
 |400	|00200042|ORDER_NOT_CANCELABLE	|Order is not cancelable|
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fpaypay%2Fpaypayopa-sdk-python.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fpaypay%2Fpaypayopa-sdk-python?ref=badge_large)
