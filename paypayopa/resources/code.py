@@ -1,5 +1,5 @@
-from .base import Resource
-from ..constants.url import URL
+from paypayopa.resources.base import Resource
+from paypayopa.constants.url import URL
 import datetime
 
 

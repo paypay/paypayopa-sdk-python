@@ -8,7 +8,7 @@ class PreAuthorize(Resource):
         super(PreAuthorize, self).__init__(client)
         self.base_url = URL.PAYMENT
 
-    def create(self, data={}, **kwargs):
+    def preAuthorize_create(self, data={}, **kwargs):
         url = "{}/{}".format(self.base_url, 'preauthorize')
         if "requestedAt" not in data:
             data['requestedAt'] = int(datetime.datetime.now().timestamp())

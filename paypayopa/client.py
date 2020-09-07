@@ -9,11 +9,11 @@ import uuid
 import datetime
 
 from types import ModuleType
-from .constants import URL, HTTP_STATUS_CODE, ERROR_CODE
+from paypayopa.constants import URL, HTTP_STATUS_CODE, ERROR_CODE
 
-from . import resources
+from paypayopa import resources
 
-from .errors import (ServerError)
+from paypayopa.errors import ServerError
 
 
 def capitalize_camel_case(string):
@@ -54,7 +54,10 @@ class Client:
         # intializes each resource
         # injecting this client object into the constructor
         for name, Klass in RESOURCE_CLASSES.items():
-            setattr(self, name, Klass(self))
+            for func_name, func in Klass.__dict__.items():
+                if "function" in str(func):
+                    print(func_name)
+                    setattr(self, func_name, func)
 
     def _set_base_url(self, **options):
         if self.production_mode is False:
@@ -231,3 +234,17 @@ class Client:
                        content_type,
                        _data)
         return _data, _auth_header
+
+check_client = Client(auth=('key_id', 'key_secret'), production_mode=False)
+# print(RESOURCE_CLASSES)
+request_payload = {
+    "merchantPaymentId": "merchant_payment_id",
+    "codeType": "ORDER_QR",
+    "orderDescription":"Mune's Favourite Cake",
+    "amount": {
+        "amount": 1,
+        "currency": "JPY"
+    }
+}
+check_client.create_qr_code(request_payload)
+

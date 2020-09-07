@@ -17,4 +17,4 @@ class TestClientQRCode(ClientTestCase):
         url = self.base_url
         responses.add(responses.POST, url, status=200, body=json.dumps(result),
                       match_querystring=True)
-        self.assertEqual(self.client.code.create_qr_code(init), result)
+        self.assertEqual(self.client.create_qr_code(init), result)
