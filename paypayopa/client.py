@@ -7,14 +7,15 @@ import jwt
 import requests
 import uuid
 import datetime
+from types import MethodType
+
 
 from types import ModuleType
-from paypayopa.constants import URL, HTTP_STATUS_CODE, ERROR_CODE
+from .constants import URL, HTTP_STATUS_CODE, ERROR_CODE
 
-from paypayopa import resources
+from . import resources
 
-from paypayopa.errors import ServerError
-
+from .errors import ServerError
 
 def capitalize_camel_case(string):
     return "".join(map(str.capitalize, string.split('_')))
@@ -56,8 +57,10 @@ class Client:
         for name, Klass in RESOURCE_CLASSES.items():
             for func_name, func in Klass.__dict__.items():
                 if "function" in str(func):
-                    print(func_name)
-                    setattr(self, func_name, func)
+                    if func_name is not "__init__":
+                        print(func.__name__)
+                        setattr(self, func.__name__, MethodType(func, self))
+                        # setattr(self, func_name, func)
 
     def _set_base_url(self, **options):
         if self.production_mode is False:
@@ -238,13 +241,28 @@ class Client:
 check_client = Client(auth=('key_id', 'key_secret'), production_mode=False)
 # print(RESOURCE_CLASSES)
 request_payload = {
-    "merchantPaymentId": "merchant_payment_id",
+    "merchantPaymentId": "cb31bcc0-3b6c-46e0-9002-e5c4bb1e3d5f",
     "codeType": "ORDER_QR",
-    "orderDescription":"Mune's Favourite Cake",
+    "redirectUrl":"http://foobar.com",
+    "redirectType":"WEB_LINK",
+    "orderDescription":"Example - Mune Cake shop",
+    "requestedAt": 0,
+    "orderItems": [{
+        "name": "Moon cake",
+        "category": "pasteries",
+        "quantity": "1",
+        "productId": "67678",
+        "unitPrice": {
+            "amount": 1,
+            "currency": "JPY"
+        }
+    }],
     "amount": {
         "amount": 1,
         "currency": "JPY"
     }
 }
+
+print(RESOURCE_CLASSES)
 check_client.create_qr_code(request_payload)
 

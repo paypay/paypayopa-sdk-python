@@ -3,7 +3,7 @@ from ..constants.url import URL
 import datetime
 
 
-class PreAuthorize(Resource):
+class Preauth(Resource):
     def __init__(self, client=None):
         super(PreAuthorize, self).__init__(client)
         self.base_url = URL.PAYMENT
