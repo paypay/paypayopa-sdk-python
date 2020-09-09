@@ -1,6 +1,5 @@
 # Paypay OPA SDK - Python
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a86509528ec944ad9cf86fe2e31a6b27)](https://app.codacy.com/gh/paypay/paypayopa-sdk-python?utm_source=github.com&utm_medium=referral&utm_content=paypay/paypayopa-sdk-python&utm_campaign=Badge_Grade_Settings)
 [![License](https://img.shields.io/:license-apache2.0-red.svg)](https://opensource.org/licenses/Apache-2.0)
 [![PyPI Version](https://img.shields.io/pypi/v/paypayopa.svg)](https://pypi.python.org/pypi/paypayopa) [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fpaypay%2Fpaypayopa-sdk-python.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fpaypay%2Fpaypayopa-sdk-python?ref=badge_shield)
 [![Build Status](https://travis-ci.org/paypay/paypayopa-sdk-python.svg?branch=master)](https://travis-ci.org/paypay/paypayopa-sdk-python)
@@ -10,6 +9,7 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/9165d052bfa9e688ae3f/maintainability)](https://codeclimate.com/github/paypay/paypayopa-sdk-python/maintainability)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=paypay_paypayopa-sdk-python&metric=alert_status)](https://sonarcloud.io/dashboard?id=paypay_paypayopa-sdk-python)
 [![PyPI - Downloads](https://img.shields.io/pypi/dm/paypayopa)](https://pypi.python.org/pypi/paypayopa)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a86509528ec944ad9cf86fe2e31a6b27)](https://app.codacy.com/gh/paypay/paypayopa-sdk-python?utm_source=github.com&utm_medium=referral&utm_content=paypay/paypayopa-sdk-python&utm_campaign=Badge_Grade_Settings)
 
 
 So you are a developer and want to start accepting payments using PayPay. PayPay's Payment SDK is the simplest way to achieve the integration. With PayPay's Payment SDK, you can build a custom Payment checkout process to suit your unique business needs and branding guidelines.
