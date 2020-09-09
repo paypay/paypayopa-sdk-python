@@ -1,11 +1,11 @@
 from .code import Code
-from .payments import Payment
+from .payment import Payment
 from .account import Account
-from .preauthorize import PreAuthorize
+from .preauth import Preauth
 
 __all__ = [
         'Code',
         'Payment',
         'Account',
-        'PreAuthorize',
+        'Preauth',
 ]

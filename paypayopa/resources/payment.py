@@ -70,3 +70,67 @@ class Payment(Resource):
                              " \x1b[0m for merchantRefundId")
         url = "{}/{}".format('/v2/refunds', id)
         return self.fetch(None, url, **kwargs)
+
+    def capture_payment(self, data=None, **kwargs):
+        if data is None:
+            data = {}
+        url = "{}/{}".format('/v2/payments', 'capture')
+        if "requestedAt" not in data:
+            data['requestedAt'] = int(datetime.datetime.now().timestamp())
+        if "merchantPaymentId" not in data:
+            raise ValueError("\x1b[31m MISSING REQUEST PARAMS"
+                             " \x1b[0m for merchantPaymentId")
+        if "merchantCaptureId" not in data:
+            raise ValueError("\x1b[31m MISSING REQUEST PARAMS"
+                             " \x1b[0m for merchantPaymentId")
+        if "orderDescription" not in data:
+            raise ValueError("\x1b[31m MISSING REQUEST PARAMS "
+                             "\x1b[0m for merchantPaymentId")
+        if "amount" not in data["amount"]:
+            raise ValueError("\x1b[31m MISSING REQUEST PARAMS "
+                             "\x1b[0m for amount")
+        if type(data["amount"]["amount"]) != int:
+            raise ValueError("\x1b[31m Amount should be of type integer"
+                             " \x1b[0m")
+        if "currency" not in data["amount"]:
+            raise ValueError("\x1b[31m MISSING REQUEST PARAMS "
+                             "\x1b[0m for currency")
+        return self.post_url(url, data, **kwargs)
+
+    def create_continuous_payment(self, data=None, **kwargs):
+        if data is None:
+            data = {}
+        url = "{}/{}".format('v1/subscription', 'payments')
+        if "requestedAt" not in data:
+            data['requestedAt'] = int(datetime.datetime.now().timestamp())
+        if "merchantPaymentId" not in data:
+            raise ValueError("\x1b[31m MISSING REQUEST PARAMS"
+                             " \x1b[0m for merchantPaymentId")
+        if "userAuthorizationId" not in data:
+            raise ValueError("\x1b[31m MISSING REQUEST PARAMS"
+                             " \x1b[0m for userAuthorizationId")
+        if "amount" not in data["amount"]:
+            raise ValueError("\x1b[31m MISSING REQUEST PARAMS "
+                             "\x1b[0m for amount")
+        if type(data["amount"]["amount"]) != int:
+            raise ValueError("\x1b[31m Amount should be of type integer"
+                             " \x1b[0m")
+        if "currency" not in data["amount"]:
+            raise ValueError("\x1b[31m MISSING REQUEST PARAMS "
+                             "\x1b[0m for currency")
+        return self.post_url(url, data, **kwargs)
+
+
+    def revert_payment(self, data=None, **kwargs):
+        if data is None:
+            data = {}
+        url = "{}/{}/{}".format('/v2/payments', 'preauthorize', 'revert')
+        if "requestedAt" not in data:
+            data['requestedAt'] = int(datetime.datetime.now().timestamp())
+        if "merchantRevertId" not in data:
+            raise ValueError("\x1b[31m MISSING REQUEST PARAMS"
+                             " \x1b[0m for merchantPaymentId")
+        if "paymentId" not in data:
+            raise ValueError("\x1b[31m MISSING REQUEST PARAMS"
+                             " \x1b[0m for merchantPaymentId")
+        return self.post_url(url, data, **kwargs)
