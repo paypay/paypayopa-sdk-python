@@ -7,8 +7,6 @@ import jwt
 import requests
 import uuid
 import datetime
-from types import MethodType
-
 
 from types import ModuleType
 from .constants import URL, HTTP_STATUS_CODE, ERROR_CODE
@@ -16,6 +14,7 @@ from .constants import URL, HTTP_STATUS_CODE, ERROR_CODE
 from . import resources
 
 from .errors import ServerError
+
 
 def capitalize_camel_case(string):
     return "".join(map(str.capitalize, string.split('_')))
@@ -26,7 +25,7 @@ RESOURCE_CLASSES = {}
 for name, module in resources.__dict__.items():
     if isinstance(module, ModuleType) and \
             capitalize_camel_case(name) in module.__dict__:
-        RESOURCE_CLASSES[name] = module.__dict__[capitalize_camel_case(name)]
+        RESOURCE_CLASSES[capitalize_camel_case(name)] = module.__dict__[capitalize_camel_case(name)]
 
 
 class Client:
@@ -51,16 +50,10 @@ class Client:
         self.assume_merchant = ""
 
         self.base_url = self._set_base_url(**options)
-        print("baseURL, " + self.base_url)
         # intializes each resource
         # injecting this client object into the constructor
         for name, Klass in RESOURCE_CLASSES.items():
-            for func_name, func in Klass.__dict__.items():
-                if "function" in str(func):
-                    if func_name is not "__init__":
-                        print(func.__name__)
-                        setattr(self, func.__name__, MethodType(func, self))
-                        # setattr(self, func_name, func)
+            setattr(self, name, Klass(self))
 
     def _set_base_url(self, **options):
         if self.production_mode is False:
@@ -73,7 +66,7 @@ class Client:
         return base_url
 
     def set_assume_merchant(self, merchant):
-        if(merchant):
+        if (merchant):
             self.assume_merchant = merchant
 
     def encode_jwt(self, secret=str, scope="direct_debit",
@@ -81,7 +74,6 @@ class Client:
                    reference_id=str(uuid.uuid4())[:8],
                    device_id="", phone_number=""):
         jwt_data = {
-            "aud": 'paypay.ne.jp',
             "iss": 'merchant',
             "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=5),
             "scope": scope,
@@ -230,39 +222,10 @@ class Client:
             content_type = "application/json;charset=UTF-8"
         uri_path = path
         _auth_header = self.auth_header(
-                       self.auth[0],
-                       self.auth[1],
-                       method,
-                       uri_path,
-                       content_type,
-                       _data)
+            self.auth[0],
+            self.auth[1],
+            method,
+            uri_path,
+            content_type,
+            _data)
         return _data, _auth_header
-
-check_client = Client(auth=('key_id', 'key_secret'), production_mode=False)
-# print(RESOURCE_CLASSES)
-request_payload = {
-    "merchantPaymentId": "cb31bcc0-3b6c-46e0-9002-e5c4bb1e3d5f",
-    "codeType": "ORDER_QR",
-    "redirectUrl":"http://foobar.com",
-    "redirectType":"WEB_LINK",
-    "orderDescription":"Example - Mune Cake shop",
-    "requestedAt": 0,
-    "orderItems": [{
-        "name": "Moon cake",
-        "category": "pasteries",
-        "quantity": "1",
-        "productId": "67678",
-        "unitPrice": {
-            "amount": 1,
-            "currency": "JPY"
-        }
-    }],
-    "amount": {
-        "amount": 1,
-        "currency": "JPY"
-    }
-}
-
-print(RESOURCE_CLASSES)
-check_client.create_qr_code(request_payload)
-
