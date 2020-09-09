@@ -1,5 +1,6 @@
 # Paypay OPA SDK - Python
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a86509528ec944ad9cf86fe2e31a6b27)](https://app.codacy.com/gh/paypay/paypayopa-sdk-python?utm_source=github.com&utm_medium=referral&utm_content=paypay/paypayopa-sdk-python&utm_campaign=Badge_Grade_Settings)
 [![License](https://img.shields.io/:license-apache2.0-red.svg)](https://opensource.org/licenses/Apache-2.0)
 [![PyPI Version](https://img.shields.io/pypi/v/paypayopa.svg)](https://pypi.python.org/pypi/paypayopa) [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fpaypay%2Fpaypayopa-sdk-python.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fpaypay%2Fpaypayopa-sdk-python?ref=badge_shield)
 [![Build Status](https://travis-ci.org/paypay/paypayopa-sdk-python.svg?branch=master)](https://travis-ci.org/paypay/paypayopa-sdk-python)
