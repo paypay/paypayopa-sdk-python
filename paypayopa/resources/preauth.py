@@ -18,9 +18,6 @@ class Preauth(Resource):
         if "userAuthorizationId" not in data:
             raise ValueError("\x1b[31m MISSING REQUEST PARAMS "
                              "\x1b[0m for merchantPaymentId")
-        if "userAuthorizationId" not in data:
-            raise ValueError("\x1b[31m MISSING REQUEST PARAMS "
-                             "\x1b[0m for userAuthorizationId")
         if "amount" not in data["amount"]:
             raise ValueError("\x1b[31m MISSING REQUEST PARAMS "
                              "\x1b[0m for amount")

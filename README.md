@@ -1,7 +1,8 @@
 # Paypay OPA SDK - Python
 
 [![License](https://img.shields.io/:license-apache2.0-red.svg)](https://opensource.org/licenses/Apache-2.0)
-[![PyPI Version](https://img.shields.io/pypi/v/paypayopa.svg)](https://pypi.python.org/pypi/paypayopa) [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fpaypay%2Fpaypayopa-sdk-python.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fpaypay%2Fpaypayopa-sdk-python?ref=badge_shield)
+[![PyPI Version](https://img.shields.io/pypi/v/paypayopa.svg)](https://pypi.python.org/pypi/paypayopa)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fpaypay%2Fpaypayopa-sdk-python.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fpaypay%2Fpaypayopa-sdk-python?ref=badge_shield)
 [![Build Status](https://travis-ci.org/paypay/paypayopa-sdk-python.svg?branch=master)](https://travis-ci.org/paypay/paypayopa-sdk-python)
 [![Coverage Status](https://coveralls.io/repos/github/paypay/paypayopa-sdk-python/badge.svg?branch=feature/testcases)](https://coveralls.io/github/paypay/paypayopa-sdk-python?branch=master)
 [![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/paypay/paypayopa-sdk-python.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/paypay/paypayopa-sdk-python/context:python)
@@ -38,14 +39,18 @@ Once you have understood the payment flow, before we start the integration make 
 ```sh
 $ pip install paypayopa
 ```
+
 ## Getting Started
 You need to setup your key and secret using the following:
 
 To work in production mode you need to specify your production API_KEY & API_SECRET along with a production_mode True boolean flag
 ```py
 import paypayopa
+
 client = paypayopa.Client(auth=(API_KEY, API_SECRET),
                          production_mode=True)
+
+client.set_assume_merchant("MERCHANT_ID")
 ```
 or
 
@@ -53,6 +58,7 @@ or
 To work in sandbox mode you need to specify your sandbox API_KEY & API_SECRET keys along with a False boolean flag or you could just omit the production_mode flag since it defaults to False if not specified
 ```py
 import paypayopa
+
 client = paypayopa.Client(auth=(API_KEY, API_SECRET),
                          production_mode=False)
 ```
@@ -74,7 +80,7 @@ For details of all the request and response parameters , check our [API Document
 request = {
     "merchantPaymentId": "cb31bcc0-3b6c-46e0-9002-e5c4bb1e3d5f",
     "codeType": "ORDER_QR",
-    "redirectUrl":"http://foobar.com",
+    "redirectUrl": "http://foobar.com",
     "redirectType":"WEB_LINK",
     "orderDescription":"Example - Mune Cake shop",
     "orderItems": [{
@@ -93,10 +99,12 @@ request = {
     },
 }
 
-client.code.create_qr_code(request)
+client.Code.create_qr_code(request)
 ```
 
 Did you get a **HTTP 201** response, if yes then you are all set for the next step.
+
+<hr>
 
 ### Get Payment Details
 
@@ -106,13 +114,15 @@ Now that you have created a Code, the next  step is to implement polling to get 
 |---|---|---|---|
 |merchantPaymentId   |  Yes |string <= 64 characters  |The unique payment transaction id provided by merchant   |
 
-### Fetch a particular OR CODE payment details
+### Fetch a particular QR CODE payment details
 ```py
-client.code.get_payment_details("<merchantPaymentId>")
+client.Payment.get_payment_details("<merchantPaymentId>")
 ```
 For details of all the request and response parameters , check our [API Documentation guide](https://www.paypay.ne.jp/opa/doc/jp/v1.0/dynamicqrcode#operation/getPaymentDetails)
-On successful payment, the status in the rsponse will change to **COMPLETED**
-In case of a Preauth for Payment, the status in the rsponse will change to **AUTHORIZED**
+On successful payment, the status in the response will change to **COMPLETED**
+In case of a Preauth for Payment, the status in the response will change to **AUTHORIZED**
+
+<hr>
 
 ### Delete a QRCode
 So you want to delete a Code that you have already generated. Following can be possible reasons to use this API:
@@ -126,10 +136,12 @@ Following are the important parameters that you can provide for this method:
 |codeId   |  Yes |string  |This is given as a response in the Create a QR Code method |
 
 ```py
-client.code.delete_qr_code("<CodeID>")
+client.Code.delete_qr_code("<CodeID>")
 ```
 
 For details of all the request and response parameters , check our [API Documentation guide](https://www.paypay.ne.jp/opa/doc/jp/v1.0/dynamicqrcode#operation/deleteQRCode)
+
+<hr>
 
 ### Cancel a payment
 So you want to cancel a Payment. In most cases this should not be needed for payment happening in this flow, however following can be a case when this might be needed.
@@ -146,9 +158,10 @@ Following are the important parameters that you can provide for this method:
 
 
 ```py
-client.code.cancel_payment("<merchantPaymentId>")
+client.Payment.cancel_payment("<merchantPaymentId>")
 ```
 
+<hr>
 
 ### Refund a payment
 
@@ -173,10 +186,12 @@ payload = {
     "reason": "reason for refund"
 }
 
-client.code.refund_payment(refund_payment_details)
+client.Payment.refund_payment(refund_payment_details)
 ```
 
 For details of all the request and response parameters , check our [API Documentation guide](https://www.paypay.ne.jp/opa/doc/v1.0/dynamicqrcode#operation/refundPayment). **Please note that currently we only support 1 refund per order.**
+
+<hr>
 
 ### Capture a payment authorization
 
@@ -200,9 +215,11 @@ request_payload = {
     orderDescription: "Example - Mune Cake shop"
 }
 
-client.code.capture_payment(request_payload)
+client.Payment.capture_payment(request_payload)
 ```
 For details of all the request and response parameters , check our [API Documentation guide](https://www.paypay.ne.jp/opa/doc/v1.0/dynamicqrcode#operation/capturePaymentAuth).
+
+<hr>
 
 ### Revert a payment authorization
 So the order has cancelled the order while the payment was still Authorized, please use the revert a payment authorization method to refund back to the user. Following are the important parameters that you can provide for this method:
@@ -220,10 +237,12 @@ request_payload = {
     "reason":  "reason for refund"
 }
 
-client.code.revert_payment(request_payload)
+client.Payment.revert_payment(request_payload)
 ```
 For List of params refer to the API guide :
 https://www.paypay.ne.jp/opa/doc/v1.0/dynamicqrcode#operation/revertAuth
+
+<hr>
 
 ### Fetch refund status and details
 So you want to confirm the status of the refund, maybe because the request for the refund timed out when you were processing the same. Following are the important parameters that you can provide for this method:
@@ -234,10 +253,11 @@ So you want to confirm the status of the refund, maybe because the request for t
 
 
 ```py
-client.code.refund_status("<merchantRefundId>")
+client.Payment.refund_status("<merchantRefundId>")
 ```
 For details of all the request and response parameters , check our [API Documentation guide](https://www.paypay.ne.jp/opa/doc/v1.0/dynamicqrcode#operation/getRefundDetails).
 
+<hr>
 
 # When to use Native Payments
 Native Payments is recommended normally in the following scenarios
@@ -255,7 +275,6 @@ In order to acquire an authorization you need to create a JWT Token -
 
 |cliam|	required | type|	description|
 |---|---|---|---|
-|aud| yes|	string|	"paypay.ne.jp"|
 |iss| yes|	string|	the merchant name|
 |exp| yes|	number|	The expiration date of the authorization page URL. Set with epoch time stamp (seconds).
 |scope| yes|	string|	direct_debit|
@@ -266,15 +285,18 @@ In order to acquire an authorization you need to create a JWT Token -
 |phoneNumber| no|	string| The user mobile phone number|
 
 ```py
-# Creating a JWT Token for requesting user Authorization
-
+# Helper function to create a JWT Token for requesting user Authorization
+client.encode_jwt(API_SECRET,
+                redirectUrl = "https://example.com",
+                deviceId = "qwertyuiopoiuytre54567",
+                phoneNumber = 90999999999 )
 ```
 
 Once the user has granted authorization, we will return the UserAuthorizationID as a part of the JWT Token in response/ webhook
 
 ```py
 # Retrieving userAuthorizationId from response JWT
-
+client.decode_jwt(API_SECRET, token)
 ```
 
 ### Create a payment
@@ -296,16 +318,16 @@ request = {
     orderDescription = "Mune's Favourite Cake"
 }
 # Calling the method to create a payment
-response = client.payment.create(request)
+response = client.Payment.create(request)
 # Printing if the method call was SUCCESS, this does not mean the payment was a success
 print(response.resultInfo.code)
 ```
 
-Did you get **SUCCESS** in the print statement above, if yes then the API execution has happend correctly.
+Did you get **SUCCESS** in the print statement above, if yes then the API execution has happened correctly.
 
 For details of all the request and response parameters , check our [API Documentation guide](https://www.paypay.ne.jp/opa/doc/v1.0/direct_debit#operation/createPayment)
 
-
+<hr>
 
 ### Get Payment Details
 Now that you have created a payment, in case the payment request timeout, you can call get payment details method to know the payment status. Following are the important parameters that you can provide for this method:
@@ -316,17 +338,19 @@ Now that you have created a payment, in case the payment request timeout, you ca
 
 ```py
 # Calling the method to get payment details
-response = client.payment.get_payment_details("<merchantPaymentId>")
+response = client.Payment.get_payment_details("<merchantPaymentId>")
 # Printing if the method call was SUCCESS, this does not mean the payment was a success
 print(response.resultInfo.code)
 # Printing if the transaction status for the code has COMPLETED/ AUTHORIZED
 print(response.data.status)
 ```
 
-Did you get **SUCCESS** in the print statement above, if yes then the API execution has happend correctly.
+Did you get **SUCCESS** in the print statement above, if yes then the API execution has happen correctly.
 
 On successful payment, the status in response.data.status will be **COMPLETED**
 For details of all the request and response parameters , check our [API Documentation guide](https://www.paypay.ne.jp/opa/doc/v1.0/webcashier#operation/getPaymentDetails)
+
+<hr>
 
 ### Cancel a payment
 So you want to cancel a Payment. In most cases this should not be needed for payment happening in this flow, however following can be a case when this might be needed.
@@ -343,7 +367,7 @@ Following are the important parameters that you can provide for this method:
 
 ```py
 # Calling the method to cancel a Payment
-response = client.payment.cancel_payment("<merchantPaymentId>")
+response = client.Payment.cancel_payment("<merchantPaymentId>")
 # Printing if the method call was SUCCESS
 print(response.resultInfo.code)
 ```
@@ -351,6 +375,8 @@ print(response.resultInfo.code)
 Did you get **SUCCESS** in the print statement above, if yes then the API execution has happend correctly.
 
 For details of all the request and response parameters , check our [API Documentation guide](https://www.paypay.ne.jp/opa/doc/v1.0/direct_debit#operation/cancelPayment)
+
+<hr>
 
 ### Refund a payment
 So the user has decided to return the goods they have purchased and needs to be giveb a refund. Following are the important parameters that you can provide for this method:
@@ -371,7 +397,7 @@ request = {
     reason = "reason for refund"
 }
 # Calling the method to refund a Payment
-response = client.payment.refund_payment(request)
+response = client.Payment.refund_payment(request)
 # Printing if the method call was SUCCESS
 print(response.resultInfo.code)
 ```
@@ -379,6 +405,8 @@ print(response.resultInfo.code)
 Did you get **SUCCESS** in the print statement above, if yes then the API execution has happened correctly.
 
 For details of all the request and response parameters , check our [API Documentation guide](https://www.paypay.ne.jp/opa/doc/v1.0/direct_debit#operation/refundPayment). **Please note that currently we only support 1 refund per order.**
+
+<hr>
 
 ### Fetch refund status and details
 
@@ -390,13 +418,128 @@ So you want to confirm the status of the refund, maybe because the request for t
 
 ```py
 # Calling the method to get Refund Details
-response = client.code.refundDetails("<merchantRefundId>")
+response = client.Payment.refund_details("<merchantRefundId>")
 # Printing if the method call was SUCCESS
 print(response.resultInfo.code)
 ```
-Did you get **SUCCESS** in the print statement above, if yes then the API execution has happend correctly.
+Did you get **SUCCESS** in the print statement above, if yes then the API execution has happen correctly.
 
 For details of all the request and response parameters , check our [API Documentation guide](https://www.paypay.ne.jp/opa/doc/v1.0/direct_debit#operation/getRefundDetails).
+
+<hr>
+
+### Acquire User Authorization
+
+So you want to confirm the status of the refund, maybe because the request for the refund timed out when you were processing the same. Following are the important parameters that you can provide for this method:
+
+| Claim  | Required  |Type   | Description  |  
+|---|---|---|---|
+| scopes   |  Yes | Array of string	  | Items Enum: 'direct_debit' 'cashback' 'get_balance' 'quick_pay' 'continuous_payments' 'merchant_topup' 'pending_payments' 'user_notification' 'user_topup' 'user_profile' 'preauth_capture_native' 'preauth_capture_transaction' 'push_notification' 'notification_center_ob' 'notification_center_ab' 'notification_center_tl' Scopes of the user authorization |
+| nonce | Yes | string | Random generated string |
+| redirectType | No | string | Default: 'WEB_LINK' Enum: 'APP_DEEP_LINK' 'WEB_LINK' Parameter to decide whether to redirect to merchant app or merchant web application |
+| redirectUrl | Yes | string | The callback endpoint provided by client. For 'WEB_LINK' it must be HTTPS, and its domain should be in the allowed authorization callback domains |
+| referenceId | Yes | string | The id used to identify the user in merchant system. It will be stored in the PayPay db for reconsilliation purpose |
+| phoneNumber | No | string | The user mobile phone number |
+| deviceId | No | string | The user mobile phone device id. If it is provided, we can use it to verify the user and skip the SMS verification, so as to provide more fluent UX |
+| userAgent | No | string | The User agent of the web browser. When redirectType is 'WEB_LINK' this parameter is provided, on mobile devices PayPay tries to open the browser that the merchant website is using. |
+
+```py
+payload = {
+  "scopes": [
+    "direct_debit"
+  ],
+  "nonce": "rtyuhghj7989",
+  "redirectType": "WEB_LINK",
+  "redirectUrl": "www.example.com",
+  "referenceId": "uioiugf789",
+  "phoneNumber": "90999999999",
+  "deviceId": "qwertyuiopoiuytre54567",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36"
+}
+
+client.Account.create_qr_session(payload)
+```
+
+Once the user has granted authorization, we will return the UserAuthorizationID as a part of the JWT Token in response/ webhook
+
+
+```py
+# Retrieving userAuthorizationId from response JWT
+client.decode_jwt(API_SECRET, token)
+```
+
+Did you get **SUCCESS** in the print statement above, if yes then the API execution has happen correctly.
+
+For details of all the request and response parameters , check our [API Documentation guide](https://www.paypay.ne.jp/opa/doc/v1.0/preauth_capture#operation/createAuth).
+
+<hr>
+
+### Create a Payment Authorization
+
+In order to create a payment authorization, you will need to send a request to us with the following parameters:
+
+| Claim  | Required  |Type   | Description  |  
+|---|---|---|---|
+| merchantPaymentId | Yes | string <= 64 characters	 | The unique payment transaction id provided by merchant |
+| userAuthorizationId | Yes | string <= 64 characters	 | The PayPay user reference id returned by the user authorization flow |
+| amount | Yes | integer <= 11 characters	 | Amount the user has to Pay |
+| requestedAt | Yes | integer | Epoch timestamp in seconds |
+| orderDescription | Yes | string <= 255 characters	| Description of the Capture for the user |
+
+```py
+# Creating the payload for a payment authorization request, additional parameters can be added basis the API Documentation
+request_payload = {
+    "merchantPaymentId": "merchant_payment_id",
+    "userAuthorizationId": "user_authorization_id",
+    "amount": {
+      "amount": 26.00,
+      "currency": "JPY"
+    },
+    "requestedAt": 5353454354,
+    "orderReceiptNumber": "435435435",
+    "orderDescription": "Mune's Favourite Cake",
+  }
+
+# Calling the method to create a payment authorization
+client.Preauth.pre_authorize_create(request_payload)
+```
+
+<hr>
+
+### Creating a Continuous Payment authorization
+
+In order to acquire an authorization you need to create a JWT Token -
+
+| Claim  | Required  |Type   | Description  |  
+|---|---|---|---|
+| scopes | Yes | Array of string	| Items Enum: 'direct_debit' 'cashback' 'get_balance' 'quick_pay' 'continuous_payments' 'merchant_topup' 'pending_payments' 'user_notification' 'user_topup' 'user_profile' 'preauth_capture_native' 'preauth_capture_transaction' 'push_notification' 'notification_center_ob' 'notification_center_ab' 'notification_center_tl' Scopes of the user authorization |
+| nonce | Yes | string | Random generated string |
+| redirectType | No | string | Default: 'WEB_LINK' Enum: 'APP_DEEP_LINK' 'WEB_LINK' Parameter to decide whether to redirect to merchant app or merchant web application |
+| redirectUrl | Yes | string | The callback endpoint provided by client. For 'WEB_LINK' it must be HTTPS, and its domain should be in the allowed authorization callback domains |
+| referenceId | Yes | string | The id used to identify the user in merchant system. It will be stored in the PayPay db for reconsilliation purpose |
+| phoneNumber | No | string | The user mobile phone number |
+| deviceId | No | string | The user mobile phone device id. If it is provided, we can use it to verify the user and skip the SMS verification, so as to provide more fluent UX |
+| userAgent | No | string | The User agent of the web browser. When redirectType is 'WEB_LINK' this parameter is provided, on mobile devices PayPay tries to open the browser that the merchant website is using. |
+
+```py
+# Creating the payload for a payment authorization request, additional parameters can be added basis the API Documentation
+request_payload = {
+    "merchantPaymentId": "merchant_payment_id",
+    "userAuthorizationId": "my_user_authorization_id",
+    "orderDescription":"Mune's Favourite Cake",
+    "amount": {
+          "amount": 1,
+          "currency": "JPY"
+          }
+    }
+
+# Calling the method to create a continuous payment authorization
+client.Payment.create_continuous_payment(request_payload)
+
+# Printing if the method call was SUCCESS, this does not mean the payment was a success
+print(response.resultInfo.code)
+```
+
 
 ### Error Handling
 PayPay uses HTTP response status codes and error code to indicate the success or failure of the requests. With this information, you can decide what error handling strategy to use. In general, PayPay returns the following http status codes.
