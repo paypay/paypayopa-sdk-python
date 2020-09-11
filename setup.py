@@ -7,7 +7,7 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name="paypayopa",
-    version="0.5.0",
+    version="0.5.1",
     description="PayPay OPA SDK",
     long_description=long_description,
     long_description_content_type='text/markdown',
