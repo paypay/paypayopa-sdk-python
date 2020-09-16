@@ -41,6 +41,13 @@ class Code(Resource):
                                  " \x1b[0m for orderItem.amount.currency")
         return self.post_url(url, data, **kwargs)
 
+    def get_payment_details(self, id, **kwargs):
+        url = "{}/{}/{}".format(self.base_url, 'payments', id)
+        if id is None:
+            raise ValueError("\x1b[31m MISSING REQUEST PARAMS"
+                             " \x1b[0m for merchantPaymentId")
+        return self.fetch(None, url, **kwargs)
+
     def delete_qr_code(self, id=None, **kwargs):
         if id is None:
             raise ValueError("\x1b[31m MISSING REQUEST PARAMS"
