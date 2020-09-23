@@ -4,3 +4,4 @@ class URL(object):
     CODE = "/v2/codes"
     PAYMENT = "/v2/payments"
     ACCOUNT_LINK = "/v1/qr/sessions"
+    PENDING_PAYMENT = "/v1/requestOrder"
