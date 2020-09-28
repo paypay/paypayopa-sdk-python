@@ -540,6 +540,160 @@ client.Payment.create_continuous_payment(request_payload)
 print(response.resultInfo.code)
 ```
 
+<hr>
+
+### Creating a Pending Payment authorization
+
+In order to acquire an authorization you need to create a JWT Token -
+
+| Claim  | Required  |Type   | Description  |  
+|---|---|---|---|
+| merchantPaymentId | Yes | string <= 64 characters	 | The unique payment transaction id provided by merchant |
+| userAuthorizationId | Yes | string <= 64 characters	 | The PayPay user reference id returned by the user authorization flow |
+| amount | Yes | integer <= 11 characters	 | Amount the user has to Pay |
+| requestedAt | Yes | integer | Epoch timestamp in seconds |
+| orderDescription | Yes | string <= 255 characters	| Description of the Capture for the user |
+
+```py
+# Creating the payload for a payment authorization request, additional parameters can be added basis the API Documentation
+request_payload = {
+  "merchantPaymentId": "merchant_payment_id",
+  "userAuthorizationId": "my_user_authorization_id",
+  "amount": {
+    "amount": 1,
+    "currency": "JPY"
+  },
+  "requestedAt": 01918189,
+  "expiryDate": null,
+  "storeId": "001",
+  "terminalId": "0042",
+  "orderReceiptNumber": "0878",
+  "orderDescription":"Example - Mune Cake shop",
+    "orderItems": [{
+        "name": "Moon cake",
+        "category": "pasteries",
+        "quantity": 1,
+        "productId": "67678",
+        "unitPrice": {
+            "amount": 1,
+            "currency": "JPY"
+        }
+    }],
+  "metadata": {}
+}
+
+# Calling the method to create a continuous payment authorization
+client.Pending.create_pending_payment(request_payload)
+
+# Printing if the method call was SUCCESS, this does not mean the payment was a success
+print(response.resultInfo.code)
+```
+
+Did you get **SUCCESS** in the print statement above, if yes then the API execution has happen correctly.
+
+On successful payment, the status in response.data.status will be **COMPLETED**
+For details of all the request and response parameters , check our [API Documentation guide](https://www.paypay.ne.jp/opa/doc/v1.0/pending_payments#operation/createPayment)
+
+<hr>
+
+### Get Pending Payment Details
+Now that you have created a pending payment, in case the payment request timeout, you can call get payment details method to know the payment status. Following are the important parameters that you can provide for this method:
+
+| Field  | Required  |Type   | Description  |  
+|---|---|---|---|
+|merchantPaymentId   |  Yes |string <= 64 characters  |The unique payment transaction id provided by merchant   |
+
+```py
+# Calling the method to get payment details
+response = client.Pending.get_payment_details("<merchantPaymentId>")
+# Printing if the method call was SUCCESS, this does not mean the payment was a success
+print(response.resultInfo.code)
+# Printing if the transaction status for the code has COMPLETED/ AUTHORIZED
+print(response.data.status)
+```
+
+Did you get **SUCCESS** in the print statement above, if yes then the API execution has happen correctly.
+
+On successful payment, the status in response.data.status will be **COMPLETED**
+For details of all the request and response parameters , check our [API Documentation guide](https://www.paypay.ne.jp/opa/doc/v1.0/pending_payments#operation/getPaymentDetails)
+
+<hr>
+
+### Cancel Pending Payment Details
+
+| Field  | Required  |Type   | Description  |  
+|---|---|---|---|
+|merchantPaymentId   |  Yes |string <= 64 characters  |The unique payment transaction id provided by merchant   |
+
+```py
+# Calling the method to cancel pending payment
+response = client.Pending.cancel_payment("<merchantPaymentId>")
+# Printing if the method call was SUCCESS, this does not mean the payment was a success
+print(response.resultInfo.code)
+# Printing if the transaction status for the code has COMPLETED/ AUTHORIZED
+print(response.data.status)
+```
+
+Did you get **SUCCESS** in the print statement above, if yes then the API execution has happen correctly.
+
+On successful payment, the status in response.data.status will be **COMPLETED**
+For details of all the request and response parameters , check our [API Documentation guide](https://www.paypay.ne.jp/opa/doc/v1.0/pending_payments#operation/cancelPendingOrder)
+
+<hr>
+
+### Refund a Pending Payment
+So the user has decided to return the goods they have purchased and needs to be given a refund. Following are the important parameters that you can provide for this method:
+
+| Field  | Required  |Type   | Description  |  
+|---|---|---|---|
+|merchantRefundId   |  Yes |string <= 64 characters  |The unique refund transaction id provided by merchant  |
+|paymentId   |  Yes |string <= 64 characters  |The payment transaction id provided by PayPay |
+|amount   |  Yes |integer <= 11 characters  |The amount to be refunded |
+|reason   |  No |integer <= 11 characters  |The reason for refund |
+
+```py
+payload = {
+    "assumeMerchant": "cb31bcc0-3b6c-46e0-9002-e5c4bb1e3d5f",
+    "merchantRefundId": "3b6c-46e0-9002-e5c4bb1e3d5f",
+    "paymentId": "456787656",
+    "amount": {
+        "amount": 1,
+        "currency": "JPY"
+    },
+    "reason": "reason for refund"
+}
+
+client.Pending.refund_payment(refund_payment_details)
+```
+
+On successful payment, the status in response.data.status will be **COMPLETED**
+For details of all the request and response parameters , check our [API Documentation guide](https://www.paypay.ne.jp/opa/doc/v1.0/pending_payments#operation/refundPayment)
+
+<hr>
+
+### Get refund details of a Pending payment
+
+So the user has decided to return the goods they have purchased and needs to be given a refund. Following are the important parameters that you can provide for this method:
+
+| Field  | Required  |Type   | Description  |  
+|---|---|---|---|
+|merchantPaymentId   |  Yes |string <= 64 characters  |The unique payment transaction id provided by merchant   |
+
+```py
+# Calling the method to cancel pending payment
+response = client.Pending.refund_details("<merchantPaymentId>")
+# Printing if the method call was SUCCESS, this does not mean the payment was a success
+print(response.resultInfo.code)
+# Printing if the transaction status for the code has COMPLETED/ AUTHORIZED
+print(response.data.status)
+```
+
+Did you get **SUCCESS** in the print statement above, if yes then the API execution has happen correctly.
+
+On successful payment, the status in response.data.status will be **COMPLETED**
+For details of all the request and response parameters , check our [API Documentation guide](https://www.paypay.ne.jp/opa/doc/v1.0/pending_payments#operation/getRefundDetails)
+
+
 
 ### Error Handling
 PayPay uses HTTP response status codes and error code to indicate the success or failure of the requests. With this information, you can decide what error handling strategy to use. In general, PayPay returns the following http status codes.
