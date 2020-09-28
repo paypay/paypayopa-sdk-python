@@ -541,6 +541,7 @@ print(response.resultInfo.code)
 ```
 
 
+
 ### Error Handling
 PayPay uses HTTP response status codes and error code to indicate the success or failure of the requests. With this information, you can decide what error handling strategy to use. In general, PayPay returns the following http status codes.
 
