@@ -21,17 +21,7 @@ jobs:
       id: vars
       run: echo ::set-env name=RELEASE_VERSION::${GITHUB_REF#refs/*/}
     - name: Update versiona rel
-      run: sed -i -E "s/version=\\\"[0-9.]*\\\",/version=\\\"$RELEASE_VERSION\\\",/g" ./setup.py
-    - name: Commit the changes
-      run: |
-      git add ./setup.py
-      git config --local user.email "action@github.com"
-      git config --local user.name "GitHub Action"
-      git commit -m "ci: Automatic version bump" -a | exit 0
-    - name: Push the changes
-      uses: ad-m/github-push-action@master
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+      run: sed -i -E "s/version=auto,/version=\\\"$RELEASE_VERSION\\\",/g" ./setup.py
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
