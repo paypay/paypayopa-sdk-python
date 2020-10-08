@@ -120,7 +120,6 @@ class Payment(Resource):
                              "\x1b[0m for currency")
         return self.post_url(url, data, **kwargs)
 
-
     def revert_payment(self, data=None, **kwargs):
         if data is None:
             data = {}

@@ -64,6 +64,12 @@ client = paypayopa.Client(auth=(API_KEY, API_SECRET),
                          production_mode=False)
 ```
 
+After setting up the client instance you can get the current PayPay SDK version using the following: 
+
+```py
+print(client.get_version())
+```
+
 ### Create a QR Code
 In order to receive payments using this flow, first of all you will need to create a QR Code. Following are the important parameters that you can provide for this method:
 
