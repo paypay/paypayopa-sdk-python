@@ -8,6 +8,9 @@ import requests
 import uuid
 import datetime
 
+import pkg_resources
+from pkg_resources import DistributionNotFound
+
 from types import ModuleType
 from .constants import URL, HTTP_STATUS_CODE, ERROR_CODE
 
@@ -54,6 +57,15 @@ class Client:
         # injecting this client object into the constructor
         for name, Klass in RESOURCE_CLASSES.items():
             setattr(self, name, Klass(self))
+
+    def get_version(self):
+        version = ""
+        try:
+            version = pkg_resources.require("paypayopa")[0].version
+        except DistributionNotFound:
+            print('DistributionNotFound')
+        return version
+
 
     def _set_base_url(self, **options):
         if self.production_mode is False:
