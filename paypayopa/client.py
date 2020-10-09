@@ -155,6 +155,8 @@ class Client:
             msg = ""
             code = ""
             print(response.status_code)
+            if str.upper(code) == ERROR_CODE.SERVER_ERROR:
+                raise ServerError(msg)
             json_response = response.json()
             print(json_response)
             if 'resultInfo' in json_response:
@@ -162,8 +164,6 @@ class Client:
                     msg = json_response['resultInfo']['message']
                 if 'code' in json_response['resultInfo']:
                     code = str(json_response['resultInfo']['code'])
-            if str.upper(code) == ERROR_CODE.SERVER_ERROR:
-                raise ServerError(msg)
 
     def get(self, path, params, **options):
         """
