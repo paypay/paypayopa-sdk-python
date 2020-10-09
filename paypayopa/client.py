@@ -164,8 +164,6 @@ class Client:
                     code = str(json_response['resultInfo']['code'])
             if str.upper(code) == ERROR_CODE.SERVER_ERROR:
                 raise ServerError(msg)
-            else:
-                raise ServerError(msg)
 
     def get(self, path, params, **options):
         """
