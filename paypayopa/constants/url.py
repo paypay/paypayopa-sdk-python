@@ -5,3 +5,4 @@ class URL(object):
     PAYMENT = "/v2/payments"
     ACCOUNT_LINK = "/v1/qr/sessions"
     PENDING_PAYMENT = "/v1/requestOrder"
+    USER_AUTH = "/v2/user/authorizations"
