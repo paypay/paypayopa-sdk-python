@@ -3,6 +3,7 @@ from .payment import Payment
 from .account import Account
 from .preauth import Preauth
 from .pending import Pending
+from .user import User
 
 __all__ = [
         'Code',
@@ -10,4 +11,5 @@ __all__ = [
         'Account',
         'Preauth',
         'Pending',
+        'User',
 ]
