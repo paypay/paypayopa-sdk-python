@@ -152,19 +152,13 @@ class Client:
                 (response.status_code < HTTP_STATUS_CODE.REDIRECT)):
             return response.json()
         else:
-            msg = ""
-            code = ""
-            print(response.status_code)
             json_response = response.json()
-            print(json_response)
-            if 'resultInfo' in json_response:
-                if 'message' in json_response['resultInfo']:
-                    msg = json_response['resultInfo']['message']
-                if 'code' in json_response['resultInfo']:
-                    code = str(json_response['resultInfo']['code'])
-            # More error will be returned by API response
-            if str.upper(code) == ERROR_CODE.SERVER_ERROR:
-                raise ServerError(msg)
+            resolve_url = "{}?api-id=25&code={}&code-id={}".format(
+                        URL.RESOLVE,
+                        json_response['resultInfo']['code'],
+                        json_response['resultInfo']['codeId'])
+            json_response['resolve_url'] = resolve_url
+            return json_response
 
     def get(self, path, params, **options):
         """
