@@ -1,7 +1,7 @@
 from ..resources.base import Resource
 from ..constants.url import URL
+from ..constants.api_list import API_NAMES
 import datetime
-
 
 class Code(Resource):
     def __init__(self, client=None):
@@ -39,18 +39,18 @@ class Code(Resource):
             if "currency" not in item["unitPrice"]:
                 raise ValueError("\x1b[31m MISSING REQUEST PARAMS"
                                  " \x1b[0m for orderItem.amount.currency")
-        return self.post_url(url, data, **kwargs)
+        return self.post_url(url, data, API_NAMES.CREATE_QRCODE, **kwargs)
 
     def get_payment_details(self, id, **kwargs):
         url = "{}/{}/{}".format(self.base_url, 'payments', id)
         if id is None:
             raise ValueError("\x1b[31m MISSING REQUEST PARAMS"
                              " \x1b[0m for merchantPaymentId")
-        return self.fetch(None, url, **kwargs)
+        return self.fetch(None, url, API_NAMES.CREATE_QRCODE, **kwargs)
 
     def delete_qr_code(self, id=None, **kwargs):
         if id is None:
             raise ValueError("\x1b[31m MISSING REQUEST PARAMS"
                              " \x1b[0m for codeId")
         url = "{}/{}".format(self.base_url, id)
-        return self.delete(None, url, **kwargs)
+        return self.delete(None, url, API_NAMES.GET_QR_PAYMENT, **kwargs)

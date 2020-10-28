@@ -1,5 +1,6 @@
 from .base import Resource
 from ..constants.url import URL
+from ..constants.api_list import API_NAMES
 import datetime
 
 
@@ -30,4 +31,4 @@ class Preauth(Resource):
         if "currency" not in data["amount"]:
             raise ValueError("\x1b[31m MISSING REQUEST PARAMS"
                              " \x1b[0m for currency")
-        return self.post_url(url, data, **kwargs)
+        return self.post_url(url, data, API_NAMES.PREAUTHORIZE_PAYMENT **kwargs)

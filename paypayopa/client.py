@@ -138,7 +138,7 @@ class Client:
         header = ":".join(header_list)
         return "{}:{}".format(auth_type, header)
 
-    def request(self, method, path, auth_header, **options):
+    def request(self, method, path, auth_header, api_id, **options):
         """
         Dispatches a request to the PayPay HTTP API
         """
@@ -153,67 +153,76 @@ class Client:
             return response.json()
         else:
             json_response = response.json()
-            resolve_url = "{}?api-id=25&code={}&code-id={}".format(
+            resolve_url = "{}?api-id={}&code={}&code-id={}".format(
                         URL.RESOLVE,
+                        api_id,
                         json_response['resultInfo']['code'],
                         json_response['resultInfo']['codeId'])
-            json_response['resolve_url'] = resolve_url
+            print("This link helps you to troubleshoot the issue: " + resolve_url)
             return json_response
 
-    def get(self, path, params, **options):
+    def get(self, path, params, api_id, **options):
         """
         Parses GET request options and dispatches a request
         """
         method = "GET"
         data, auth_header = self._update_request(None, path, method, options)
-        return self.request('get',
+        return self.request(method,
                             path,
                             params=params,
                             auth_header=auth_header,
+                            api_id=api_id,
                             **options)
 
-    def post(self, path, data, **options):
+    def post(self, path, data, api_id, **options):
         """
         Parses POST request options and dispatches a request
         """
         method = "POST"
         data, auth_header = self._update_request(data, path, method, options)
-        return self.request('post',
+        return self.request(method,
                             path,
                             data=data,
                             auth_header=auth_header,
+                            api_id=api_id,
                             **options)
 
-    def patch(self, path, data, **options):
+    def patch(self, path, data, api_id, **options):
         """
         Parses PATCH request options and dispatches a request
         """
         method = "PATCH"
         data, auth_header = self._update_request(data, path, method, options)
-        return self.request(method, path, auth_header=auth_header, **options)
+        return self.request(method,
+                            path,
+                            auth_header=auth_header,
+                            api_id=api_id,
+                            **options)
 
-    def delete(self, path, data, **options):
+    def delete(self, path, data, api_id, **options):
         """
         Parses DELETE request options and dispatches a request
         """
         method = "DELETE"
         data, auth_header = self._update_request(data, path, method, options)
-        return self.request('delete',
+        return self.request(method,
                             path,
                             data=data,
                             auth_header=auth_header,
+                            api_id=api_id,
                             **options)
 
-    def put(self, path, data, **options):
+    def put(self, path, data, api_id, **options):
         """
         Parses PUT request options and dispatches a request
         """
         method = "PUT"
-        data, auth_header = self._update_request(data, path, method, options)
-        return self.request('put',
+        data, auth_header = self._update_request(data, path, method, api_id, options)
+        return self.request(method,
                             path,
                             data=data,
                             auth_header=auth_header,
+                            api_id=api_id,
                             **options)
 
     def _update_request(self, data, path, method, options):
