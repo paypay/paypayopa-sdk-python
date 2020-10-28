@@ -35,14 +35,14 @@ class Payment(Resource):
         if id is None:
             raise ValueError("\x1b[31m MISSING REQUEST PARAMS"
                              " \x1b[0m for merchantPaymentId")
-        return self.fetch(None, url, API_NAMES.GET_PAYMENT, **kwargs)
+        return self.fetch(None, url, None, API_NAMES.GET_PAYMENT, **kwargs)
 
     def cancel_payment(self, id, **kwargs):
         url = "{}/{}".format(self.base_url, id)
         if id is None:
             raise ValueError("\x1b[31m MISSING REQUEST PARAMS"
                              " \x1b[0m for merchantPaymentId")
-        return self.delete(None, url, API_NAMES.CANCEL_PAYMENT, **kwargs)
+        return self.delete(None, url, None, API_NAMES.CANCEL_PAYMENT, **kwargs)
 
     def refund_payment(self, data={}, **kwargs):
         url = "{}/".format('/v2/refunds')
@@ -70,7 +70,7 @@ class Payment(Resource):
             raise ValueError("\x1b[31m MISSING REQUEST PARAMS"
                              " \x1b[0m for merchantRefundId")
         url = "{}/{}".format('/v2/refunds', id)
-        return self.fetch(None, url, API_NAMES.GET_REFUND, **kwargs)
+        return self.fetch(None, url, None, API_NAMES.GET_REFUND, **kwargs)
 
     def capture_payment(self, data=None, **kwargs):
         if data is None:

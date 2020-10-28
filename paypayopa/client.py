@@ -158,7 +158,7 @@ class Client:
                         api_id,
                         json_response['resultInfo']['code'],
                         json_response['resultInfo']['codeId'])
-            print("This link helps you to troubleshoot the issue: " + resolve_url)
+            print("This link should help you to troubleshoot the error: " + resolve_url)
             return json_response
 
     def get(self, path, params, api_id, **options):
@@ -167,7 +167,7 @@ class Client:
         """
         method = "GET"
         data, auth_header = self._update_request(None, path, method, options)
-        return self.request(method,
+        return self.request("get",
                             path,
                             params=params,
                             auth_header=auth_header,
@@ -180,7 +180,7 @@ class Client:
         """
         method = "POST"
         data, auth_header = self._update_request(data, path, method, options)
-        return self.request(method,
+        return self.request("post",
                             path,
                             data=data,
                             auth_header=auth_header,
@@ -193,7 +193,7 @@ class Client:
         """
         method = "PATCH"
         data, auth_header = self._update_request(data, path, method, options)
-        return self.request(method,
+        return self.request("patch",
                             path,
                             auth_header=auth_header,
                             api_id=api_id,
@@ -205,7 +205,7 @@ class Client:
         """
         method = "DELETE"
         data, auth_header = self._update_request(data, path, method, options)
-        return self.request(method,
+        return self.request("delete",
                             path,
                             data=data,
                             auth_header=auth_header,
@@ -218,7 +218,7 @@ class Client:
         """
         method = "PUT"
         data, auth_header = self._update_request(data, path, method, api_id, options)
-        return self.request(method,
+        return self.request("put",
                             path,
                             data=data,
                             auth_header=auth_header,
