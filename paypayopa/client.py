@@ -217,12 +217,11 @@ class Client:
         Parses PUT request options and dispatches a request
         """
         method = "PUT"
-        data, auth_header = self._update_request(data, path, method, api_id, options)
+        data, auth_header = self._update_request(data, path, method, options)
         return self.request("put",
                             path,
                             data=data,
                             auth_header=auth_header,
-                            api_id=api_id,
                             **options)
 
     def _update_request(self, data, path, method, options):
