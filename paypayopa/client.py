@@ -12,11 +12,9 @@ import pkg_resources
 from pkg_resources import DistributionNotFound
 
 from types import ModuleType
-from .constants import URL, HTTP_STATUS_CODE, ERROR_CODE
+from .constants import URL, HTTP_STATUS_CODE
 
 from . import resources
-
-from .errors import ServerError
 
 
 def capitalize_camel_case(string):
