@@ -12,11 +12,9 @@ import pkg_resources
 from pkg_resources import DistributionNotFound
 
 from types import ModuleType
-from .constants import URL, HTTP_STATUS_CODE, ERROR_CODE
+from .constants import URL, HTTP_STATUS_CODE
 
 from . import resources
-
-from .errors import ServerError
 
 
 def capitalize_camel_case(string):
@@ -147,32 +145,27 @@ class Client:
             'Authorization': auth_header,
             'Content-Type': 'application/json;charset=UTF-8',
             'X-ASSUME-MERCHANT': self.assume_merchant
-        }, **options)
+        })
         if ((response.status_code >= HTTP_STATUS_CODE.OK) and
                 (response.status_code < HTTP_STATUS_CODE.REDIRECT)):
             return response.json()
         else:
-            msg = ""
-            code = ""
-            print(response.status_code)
             json_response = response.json()
-            print(json_response)
-            if 'resultInfo' in json_response:
-                if 'message' in json_response['resultInfo']:
-                    msg = json_response['resultInfo']['message']
-                if 'code' in json_response['resultInfo']:
-                    code = str(json_response['resultInfo']['code'])
-            # More error will be returned by API response
-            if str.upper(code) == ERROR_CODE.SERVER_ERROR:
-                raise ServerError(msg)
+            resolve_url = "{}?api-name={}&code={}&code-id={}".format(
+                        URL.RESOLVE,
+                        options.get("api_id"),
+                        json_response['resultInfo']['code'],
+                        json_response['resultInfo']['codeId'])
+            print("This link should help you to troubleshoot the error: " + resolve_url)
+            return json_response
 
     def get(self, path, params, **options):
         """
         Parses GET request options and dispatches a request
         """
         method = "GET"
-        data, auth_header = self._update_request(None, path, method, options)
-        return self.request('get',
+        data, auth_header = self._update_request(None, path, method)
+        return self.request("get",
                             path,
                             params=params,
                             auth_header=auth_header,
@@ -183,8 +176,8 @@ class Client:
         Parses POST request options and dispatches a request
         """
         method = "POST"
-        data, auth_header = self._update_request(data, path, method, options)
-        return self.request('post',
+        data, auth_header = self._update_request(data, path, method)
+        return self.request("post",
                             path,
                             data=data,
                             auth_header=auth_header,
@@ -195,16 +188,19 @@ class Client:
         Parses PATCH request options and dispatches a request
         """
         method = "PATCH"
-        data, auth_header = self._update_request(data, path, method, options)
-        return self.request(method, path, auth_header=auth_header, **options)
+        data, auth_header = self._update_request(data, path, method)
+        return self.request("patch",
+                            path,
+                            auth_header=auth_header,
+                            **options)
 
     def delete(self, path, data, **options):
         """
         Parses DELETE request options and dispatches a request
         """
         method = "DELETE"
-        data, auth_header = self._update_request(data, path, method, options)
-        return self.request('delete',
+        data, auth_header = self._update_request(data, path, method)
+        return self.request("delete",
                             path,
                             data=data,
                             auth_header=auth_header,
@@ -215,14 +211,14 @@ class Client:
         Parses PUT request options and dispatches a request
         """
         method = "PUT"
-        data, auth_header = self._update_request(data, path, method, options)
-        return self.request('put',
+        data, auth_header = self._update_request(data, path, method)
+        return self.request("put",
                             path,
                             data=data,
                             auth_header=auth_header,
                             **options)
 
-    def _update_request(self, data, path, method, options):
+    def _update_request(self, data, path, method):
         """
         Updates The resource data and header options
         """

@@ -1,5 +1,6 @@
 from .base import Resource
 from ..constants.url import URL
+from ..constants.api_list import API_NAMES
 import datetime
 
 
@@ -27,21 +28,21 @@ class Pending(Resource):
         if "currency" not in data["amount"]:
             raise ValueError("\x1b[31m MISSING REQUEST PARAMS"
                              " \x1b[0m for currency")
-        return self.post_url(url, data, **kwargs)
+        return self.post_url(url, data, api_id=API_NAMES.CREATE_REQUEST_ORDER, **kwargs)
 
     def get_payment_details(self, id, **kwargs):
         url = "{}/{}".format(self.base_url, id)
         if id is None:
             raise ValueError("\x1b[31m MISSING REQUEST PARAMS"
                              " \x1b[0m for merchantPaymentId")
-        return self.fetch(None, url, **kwargs)
+        return self.fetch(None, url, None, api_id=API_NAMES.GET_REQUEST_ORDER, **kwargs)
 
     def cancel_payment(self, id, **kwargs):
         url = "{}/{}".format(self.base_url, id)
         if id is None:
             raise ValueError("\x1b[31m MISSING REQUEST PARAMS"
                              " \x1b[0m for merchantPaymentId")
-        return self.delete(None, url, **kwargs)
+        return self.delete(None, url, None, api_id=API_NAMES.CANCEL_REQUEST_ORDER, **kwargs)
 
     def refund_payment(self, data={}, **kwargs):
         url = "{}/{}".format(self.base_url, 'refunds')
@@ -62,11 +63,11 @@ class Pending(Resource):
         if "currency" not in data["amount"]:
             raise ValueError("\x1b[31m MISSING REQUEST PARAMS"
                              " \x1b[0m for currency")
-        return self.post_url(url, data, **kwargs)
+        return self.post_url(url, data,  api_id=API_NAMES.REFUND_REQUEST_ORDER, **kwargs)
 
     def refund_details(self, id=None, **kwargs):
         if id is None:
             raise ValueError("\x1b[31m MISSING REQUEST PARAMS"
                              " \x1b[0m for merchantRefundId")
         url = "{}/{}".format(self.base_url, id)
-        return self.fetch(None, url, **kwargs)
+        return self.fetch(None, url, None, api_id=API_NAMES.CANCEL_REQUEST_ORDER, **kwargs)

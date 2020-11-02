@@ -145,3 +145,4 @@ cython_debug/
 
 #example.py file
 example.py
+sdk_dev.py
