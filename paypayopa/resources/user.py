@@ -16,11 +16,11 @@ class User(Resource):
         if id is None:
             raise ValueError("\x1b[31m MISSING QUERY PARAM"
                              " \x1b[0m for userAuthorizationId")
-        return self.fetch(None, url, params, API_NAMES.GET_USER_AUTH_STATUS, **kwargs)
+        return self.fetch(None, url, params, api_id=API_NAMES.GET_USER_AUTH_STATUS, **kwargs)
 
     def unlink_user_athorization(self, id=None, **kwargs):
         if id is None:
             raise ValueError("\x1b[31m MISSING REQUEST PARAMS"
                              " \x1b[0m for codeId")
         url = "{}/{}".format(self.base_url, id)
-        return self.delete(None, url, API_NAMES.UNLINK_USER **kwargs)
+        return self.delete(None, url, api_id=API_NAMES.UNLINK_USER **kwargs)

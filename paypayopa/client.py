@@ -136,7 +136,7 @@ class Client:
         header = ":".join(header_list)
         return "{}:{}".format(auth_type, header)
 
-    def request(self, method, path, auth_header, api_id, **options):
+    def request(self, method, path, auth_header, **options):
         """
         Dispatches a request to the PayPay HTTP API
         """
@@ -145,7 +145,7 @@ class Client:
             'Authorization': auth_header,
             'Content-Type': 'application/json;charset=UTF-8',
             'X-ASSUME-MERCHANT': self.assume_merchant
-        }, **options)
+        })
         if ((response.status_code >= HTTP_STATUS_CODE.OK) and
                 (response.status_code < HTTP_STATUS_CODE.REDIRECT)):
             return response.json()
@@ -153,76 +153,72 @@ class Client:
             json_response = response.json()
             resolve_url = "{}?api-name={}&code={}&code-id={}".format(
                         URL.RESOLVE,
-                        api_id,
+                        options.get("api_id"),
                         json_response['resultInfo']['code'],
                         json_response['resultInfo']['codeId'])
             print("This link should help you to troubleshoot the error: " + resolve_url)
             return json_response
 
-    def get(self, path, params, api_id, **options):
+    def get(self, path, params, **options):
         """
         Parses GET request options and dispatches a request
         """
         method = "GET"
-        data, auth_header = self._update_request(None, path, method, options)
+        data, auth_header = self._update_request(None, path, method)
         return self.request("get",
                             path,
                             params=params,
                             auth_header=auth_header,
-                            api_id=api_id,
                             **options)
 
-    def post(self, path, data, api_id, **options):
+    def post(self, path, data, **options):
         """
         Parses POST request options and dispatches a request
         """
         method = "POST"
-        data, auth_header = self._update_request(data, path, method, options)
+        data, auth_header = self._update_request(data, path, method)
         return self.request("post",
                             path,
                             data=data,
                             auth_header=auth_header,
-                            api_id=api_id,
                             **options)
 
-    def patch(self, path, data, api_id, **options):
+    def patch(self, path, data, **options):
         """
         Parses PATCH request options and dispatches a request
         """
         method = "PATCH"
-        data, auth_header = self._update_request(data, path, method, options)
+        data, auth_header = self._update_request(data, path, method)
         return self.request("patch",
                             path,
                             auth_header=auth_header,
-                            api_id=api_id,
                             **options)
 
-    def delete(self, path, data, api_id, **options):
+    def delete(self, path, data, **options):
         """
         Parses DELETE request options and dispatches a request
         """
         method = "DELETE"
-        data, auth_header = self._update_request(data, path, method, options)
+        data, auth_header = self._update_request(data, path, method)
         return self.request("delete",
                             path,
                             data=data,
                             auth_header=auth_header,
-                            api_id=api_id,
                             **options)
 
-    def put(self, path, data, api_id, **options):
+    def put(self, path, data, **options):
         """
         Parses PUT request options and dispatches a request
         """
         method = "PUT"
-        data, auth_header = self._update_request(data, path, method, options)
+        data, auth_header = self._update_request(data, path, method)
         return self.request("put",
                             path,
                             data=data,
                             auth_header=auth_header,
                             **options)
 
-    def _update_request(self, data, path, method, options):
+    def _update_request(self, data, path, method):
         """
         Updates The resource data and header options
         """
