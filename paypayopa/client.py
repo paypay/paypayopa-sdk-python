@@ -151,7 +151,7 @@ class Client:
             return response.json()
         else:
             json_response = response.json()
-            resolve_url = "{}?api-name={}&code={}&code-id={}".format(
+            resolve_url = "{}?api_name={}&code={}&code_id={}".format(
                         URL.RESOLVE,
                         options.get("api_id"),
                         json_response['resultInfo']['code'],
