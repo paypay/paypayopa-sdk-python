@@ -140,12 +140,13 @@ class Client:
         """
         Dispatches a request to the PayPay HTTP API
         """
+        del options['api_id']
         url = "{}{}".format(self.base_url, path)
         response = getattr(self.session, method)(url, headers={
             'Authorization': auth_header,
             'Content-Type': 'application/json;charset=UTF-8',
             'X-ASSUME-MERCHANT': self.assume_merchant
-        })
+        }, **options)
         if ((response.status_code >= HTTP_STATUS_CODE.OK) and
                 (response.status_code < HTTP_STATUS_CODE.REDIRECT)):
             return response.json()
