@@ -140,6 +140,7 @@ class Client:
         """
         Dispatches a request to the PayPay HTTP API
         """
+        api_name = options['api_id']
         del options['api_id']
         url = "{}{}".format(self.base_url, path)
         response = getattr(self.session, method)(url, headers={
@@ -154,7 +155,7 @@ class Client:
             json_response = response.json()
             resolve_url = "{}?api_name={}&code={}&code_id={}".format(
                         URL.RESOLVE,
-                        options.get("api_id"),
+                        api_name,
                         json_response['resultInfo']['code'],
                         json_response['resultInfo']['codeId'])
             print("This link should help you to troubleshoot the error: " + resolve_url)
