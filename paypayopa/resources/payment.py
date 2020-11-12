@@ -48,9 +48,9 @@ class Payment(Resource):
         if "merchantPaymentId" not in data:
             raise ValueError("\x1b[31m MISSING REQUEST PARAMS "
                              "\x1b[0m for merchantPaymentId")
-        if "userAuthorizationId" not in data:
+        if "paymentId" not in data:
             raise ValueError("\x1b[31m MISSING REQUEST PARAMS "
-                             "\x1b[0m for userAuthorizationId")
+                             "\x1b[0m for paymentId")
         if "amount" not in data["amount"]:
             raise ValueError("\x1b[31m MISSING REQUEST PARAMS "
                              "\x1b[0m for amount")
