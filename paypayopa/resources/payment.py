@@ -45,9 +45,9 @@ class Payment(Resource):
         url = "{}/".format('/v2/refunds')
         if "requestedAt" not in data:
             data['requestedAt'] = datetime.datetime.now().second
-        if "merchantPaymentId" not in data:
+        if "merchantRefundId" not in data:
             raise ValueError("\x1b[31m MISSING REQUEST PARAMS "
-                             "\x1b[0m for merchantPaymentId")
+                             "\x1b[0m for merchantRefundId")
         if "paymentId" not in data:
             raise ValueError("\x1b[31m MISSING REQUEST PARAMS "
                              "\x1b[0m for paymentId")
