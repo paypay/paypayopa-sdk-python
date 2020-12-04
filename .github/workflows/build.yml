@@ -16,14 +16,16 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
+
     - name: Install dependencies
-      run: pip install pytest
-      run: pip install responses
-      run: pip install pytest-cov
-      run: pip install coveralls
-      run: pip install requests
-      run: pip install pyjwt
-      run: pip install uuid
+      run: |
+           pip install pytest 
+           pip install responses
+           pip install pytest-cov
+           pip install coveralls
+           pip install requests
+           pip install pyjwt
+           pip install uuid
     
     - name: Test with pytest
       run: |
