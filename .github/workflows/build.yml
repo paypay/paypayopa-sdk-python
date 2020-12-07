@@ -34,7 +34,7 @@ jobs:
            ./cc-test-reporter before-build
 
     - name: Coveralls
-        env:
+        with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           coveralls
