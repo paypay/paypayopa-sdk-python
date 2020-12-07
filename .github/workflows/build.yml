@@ -33,8 +33,9 @@ jobs:
            chmod +x ./cc-test-reporter
            ./cc-test-reporter before-build
 
-    - name: After Success
-      uses: coverallsapp/github-action@master
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Coveralls
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          coveralls
       
