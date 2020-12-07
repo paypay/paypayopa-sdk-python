@@ -34,7 +34,5 @@ jobs:
            ./cc-test-reporter before-build
 
     - name: After Success
-      uses: coverallsapp/github-action@master
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
+      run: coveralls
       
