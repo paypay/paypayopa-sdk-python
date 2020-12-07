@@ -34,9 +34,10 @@ jobs:
            ./cc-test-reporter before-build
 
     - name: After Success
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
       run: |
            coveralls
            bash <(curl -s https://copilot.blackducksoftware.com/ci/travis/scripts/upload)
            ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
+      
