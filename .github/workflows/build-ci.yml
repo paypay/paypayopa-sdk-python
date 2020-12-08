@@ -32,7 +32,10 @@ jobs:
            pip install requests
            pip install pyjwt
            pip install uuid
-
+    
+    - name: test script
+      run: pytest --cov=tests/
+    
     - name: Before script
       run: |
            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
