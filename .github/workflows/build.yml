@@ -34,8 +34,7 @@ jobs:
            ./cc-test-reporter before-build
 
     - name: After Success
-      uses: codecov/codecov-action@v1
+      uses: coverallsapp/github-action@master
       with:
-        fail_ci_if_error: true
-        verbose: true
+        github-token: ${{ secrets.github_token }}
       
