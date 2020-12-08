@@ -51,4 +51,4 @@ jobs:
     - name: Upload to CoPilot
       run: bash <(curl -s https://copilot.blackducksoftware.com/ci/githubactions/scripts/upload)
     - name: afer success
-      run: ./cc-test-reporter after-build
+      run: ./cc-test-reporter after-build --exit-code 0
