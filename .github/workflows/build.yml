@@ -34,8 +34,16 @@ jobs:
            ./cc-test-reporter before-build
 
     - name: After Success
-      uses: coverallsapp/github-action@master
+      uses: codecov/codecov-action@v1
       with:
-        github-token: ${{ secrets.github_token }}
-        path-to-lcov: /output/coverage/lcov.info
+        token: ${{ secrets.CODECOV_TOKEN }}
+        file: ./coverage.xml
+        files: ./coverage1.xml,./coverage2.xml
+        directory: ./coverage/reports/
+        flags: unittests
+        env_vars: OS,PYTHON
+        name: codecov-umbrella
+        fail_ci_if_error: true
+        path_to_write_report: ./coverage/codecov_report.txt
+        verbose: true
       
