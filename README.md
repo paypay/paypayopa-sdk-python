@@ -29,7 +29,7 @@ Following diagram defines the flow for Dynamic QR Code.
 
 We recommend that the merchant implements a Polling of the Get payment Details API with a 4-5 second interval in order to know the status of the transaction.
 
-## Lets get Started
+## Let's get Started
 Once you have understood the payment flow, before we start the integration make sure you have:
 
 - [Registered](https://developer.paypay.ne.jp/) for a PayPay developer/merchant Account
