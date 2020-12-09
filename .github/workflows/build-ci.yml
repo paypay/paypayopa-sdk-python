@@ -1,0 +1,52 @@
+name: Python SDK CI
+
+on: [push,pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      CC_TEST_REPORTER_ID: 901d3045718f66236a651e6fb24639a8d66ff4e6f631a76fcee254136b5ffe8b
+    strategy:
+      matrix:
+        python-version: [3.5, 3.6, 3.7, 3.8, 3.9]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: register repo token
+      env:
+        COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+      run: |
+        echo repo_token: ${COVERALLS_REPO_TOKEN} > ./.coveralls.yml
+    
+    - name: Install dependencies
+      run: |
+           pip install pytest 
+           pip install responses
+           pip install pytest-cov
+           pip install coveralls
+           pip install requests
+           pip install pyjwt
+           pip install uuid
+    
+    - name: test script
+      run: pytest --cov=tests/
+    
+    - name: Before script
+      run: |
+           curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+           chmod +x ./cc-test-reporter
+           ./cc-test-reporter before-build
+
+    - name: Coveralls
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        coveralls
+    - name: Upload to CoPilot
+      run: bash <(curl -s https://copilot.blackducksoftware.com/ci/githubactions/scripts/upload)
