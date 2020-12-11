@@ -52,4 +52,4 @@ jobs:
       run: bash <(curl -s https://copilot.blackducksoftware.com/ci/githubactions/scripts/upload)
 
     - name: After build
-      run: ./cc-test-reporter after-build --exit-code 0
+      run: ./cc-test-reporter after-build --coverage-input-type coverage.py --exit-code 0
