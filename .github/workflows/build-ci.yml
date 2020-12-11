@@ -33,15 +33,15 @@ jobs:
            pip install requests
            pip install pyjwt
            pip install uuid
-    
+
+    - name: Before script
+        run: |
+          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+          chmod +x ./cc-test-reporter
+          ./cc-test-reporter before-build
+
     - name: test script
       run: pytest --cov=tests/
-    
-    - name: Before script
-      run: |
-           curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-           chmod +x ./cc-test-reporter
-           ./cc-test-reporter before-build
 
     - name: Coveralls
       env:
@@ -50,3 +50,6 @@ jobs:
         coveralls
     - name: Upload to CoPilot
       run: bash <(curl -s https://copilot.blackducksoftware.com/ci/githubactions/scripts/upload)
+
+    - name: After build
+      run: ./cc-test-reporter after-build --exit-code 0
