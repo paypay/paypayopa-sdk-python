@@ -46,8 +46,8 @@ jobs:
     - name: Coveralls
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-        coveralls
+      run: coveralls
+
     - name: Upload to CoPilot
       run: bash <(curl -s https://copilot.blackducksoftware.com/ci/githubactions/scripts/upload)
 
