@@ -1,0 +1,10 @@
+{
+    "merchantRefundId": "fakeId",
+    "paymentId": "string",
+    "amount": {
+        "amount": 0,
+        "currency": "JPY"
+    },
+    "requestedAt": 0,
+    "reason": "string"
+}

@@ -1,0 +1,6 @@
+{
+    "merchantRevertId": "string",
+    "paymentId": "string",
+    "requestedAt": 0,
+    "reason": "string"
+}
