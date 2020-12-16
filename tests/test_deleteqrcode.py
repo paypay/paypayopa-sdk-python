@@ -13,11 +13,6 @@ class TestDeleteQRCode(ClientTestCase):
     @responses.activate
     def test_qrcode_delete(self):
         result = mock_file('delete_qrcode')
-        # url = self.base_url
-        # responses.add(responses.DELETE, url, status=200)
-        # self.assertEqual(responses, result)
-
-        # result = mock_file('fake_qr_delete')
         url = '{}/{}'.format(self.base_url, 'fake_qr_id')
         responses.add(responses.DELETE, url, status=200, body=json.dumps(result),
                       match_querystring=True, )
