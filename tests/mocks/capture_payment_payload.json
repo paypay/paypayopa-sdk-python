@@ -1,0 +1,10 @@
+{
+    "merchantPaymentId": "string",
+    "amount": {
+        "amount": 0,
+        "currency": "JPY"
+    },
+    "merchantCaptureId": "string",
+    "requestedAt": 0,
+    "orderDescription": "string"
+}
