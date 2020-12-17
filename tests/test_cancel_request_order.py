@@ -12,7 +12,7 @@ class TestCancelRequestOrder(ClientTestCase):
     @responses.activate
     def test_TestCancelRequestOrder(self):
         """
-            Test cancel request order
+        Test cancel request order
         """
         result = mock_file('cancel_request_order_response')
         url = "https://stg-api.sandbox.paypay.ne.jp/v1/requestOrder/fakeMerchantId"

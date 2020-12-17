@@ -14,7 +14,7 @@ class TestCancelPayment(ClientTestCase):
     @responses.activate
     def test_cancel_payment(self):
         """
-            Test cancel payment
+        Test cancel payment
         """
         result = mock_file('cancel_payment')
         url = self.base_url
