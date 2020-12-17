@@ -11,6 +11,9 @@ class TestCreateRequestOrder(ClientTestCase):
 
     @responses.activate
     def test_TestCreateRequestOrder(self):
+        """
+            Test request order.
+        """
         init = mock_file('request_order_payload')
         result = mock_file('request_order_response')
         url = "https://stg-api.sandbox.paypay.ne.jp/v1/requestOrder"

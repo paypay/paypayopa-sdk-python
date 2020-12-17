@@ -12,6 +12,9 @@ class TestCreatePayment(ClientTestCase):
 
     @responses.activate
     def test_create_payment(self):
+        """
+            Test create payment.
+        """
         init = mock_file('create_payment_payload')
         result = mock_file('create_payment_response')
         url = url = "{}/{}".format(self.base_url, 'payments')

@@ -13,6 +13,9 @@ class TestRefundDetails(ClientTestCase):
 
     @responses.activate
     def test_refund_details(self):
+        """
+            Test refund details.
+        """
         result = mock_file('refund_details')
         url = self.base_url
         responses.add(responses.GET, url, status=200, body=json.dumps(result),

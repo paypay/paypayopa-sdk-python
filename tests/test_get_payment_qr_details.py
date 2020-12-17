@@ -13,6 +13,9 @@ class TestGetPaymentQRDetails(ClientTestCase):
 
     @responses.activate
     def test_get_payment_qr_details(self):
+        """
+            Test get payment QR details.
+        """
         result = mock_file('get_payment_details')
         url = self.base_url
         responses.add(responses.GET, url, status=200, body=json.dumps(result),

@@ -12,6 +12,9 @@ class TestDeleteQRCode(ClientTestCase):
 
     @responses.activate
     def test_qrcode_delete(self):
+        """
+            Test delete QR code.
+        """
         result = mock_file('delete_qrcode')
         url = '{}/{}'.format(self.base_url, 'fake_qr_id')
         responses.add(responses.DELETE, url, status=200, body=json.dumps(result),
