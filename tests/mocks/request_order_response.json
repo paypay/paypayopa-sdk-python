@@ -1,0 +1,34 @@
+{
+    "resultInfo": {
+        "code": "string",
+        "message": "string",
+        "codeId": "string"
+    },
+    "data": {
+        "merchantPaymentId": "string",
+        "userAuthorizationId": "string",
+        "amount": {
+            "amount": 0,
+            "currency": "JPY"
+        },
+        "requestedAt": 0,
+        "expiryDate": null,
+        "storeId": "string",
+        "terminalId": "string",
+        "orderReceiptNumber": "string",
+        "orderDescription": "string",
+        "orderItems": [
+            {
+                "name": "string",
+                "category": "string",
+                "quantity": 1,
+                "productId": "string",
+                "unitPrice": {
+                    "amount": 0,
+                    "currency": "JPY"
+                }
+            }
+        ],
+        "metadata": {}
+    }
+}
