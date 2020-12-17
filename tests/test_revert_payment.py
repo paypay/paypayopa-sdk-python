@@ -13,9 +13,7 @@ class TestRevertPayment(ClientTestCase):
 
     @responses.activate
     def test_revert_payment(self):
-        """
-        Test revert payment.
-        """
+        """Test revert payment."""
         init = mock_file('revert_payment_payload')
         result = mock_file('revert_payment_response')
         url = self.base_url

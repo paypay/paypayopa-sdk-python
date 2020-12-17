@@ -11,10 +11,8 @@ class TestCreateContinuesPayment(ClientTestCase):
         self.base_url = '{}/psubscription/payments'.format(self.base_url)
 
     @responses.activate
-    def test_CreateContinuesPayment(self):
-        """
-        Test create continues payment.
-        """
+    def test_create_continues_payment(self):
+        """Test create continues payment."""
         init = mock_file('create_continues_payment_payload')
         result = mock_file('create_continues_payment_response')
         url = "https://stg-api.sandbox.paypay.ne.jp/v1/subscription/payments"

@@ -12,10 +12,8 @@ class TestGetRequestOrder(ClientTestCase):
             self.base_url)
 
     @responses.activate
-    def test_TestGetRequestOrder(self):
-        """
-        Test get request order.
-        """
+    def test_test_GetRequest_order(self):
+        """Test get request order."""
         result = mock_file('get_request_order_response')
         url = "https://stg-api.sandbox.paypay.ne.jp/v1/requestOrder/fake_merchant_payment_id"
         responses.add(responses.GET, url, status=200, body=json.dumps(result),
