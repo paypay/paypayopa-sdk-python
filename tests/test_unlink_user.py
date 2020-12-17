@@ -13,9 +13,10 @@ class TestUnlinkUser(ClientTestCase):
 
     @responses.activate
     def test_unlink_user(self):
+        fake_user_id = 1234
         result = mock_file('unlink_user')
-        url = '{}/{}'.format(self.base_url, 'fake_user_id')
+        url = "{}/{}".format(self.base_url, fake_user_id)
         responses.add(responses.DELETE, url, status=200, body=json.dumps(result),
                       match_querystring=True)
         self.assertEqual(self.client.User.unlink_user_athorization(
-            'fake_user_id'), result)
+            fake_user_id), result)
