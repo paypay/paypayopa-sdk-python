@@ -12,7 +12,7 @@ class TestRefundRequestOrder(ClientTestCase):
 
     @responses.activate
     def test_refund_request_order(self):
-        """Test refund request order"""
+        """Test refund request order."""
         init = mock_file('refund_request_order_payload')
         result = mock_file('refund_request_order_response')
         url = "https://stg-api.sandbox.paypay.ne.jp/v1/requestOrder/refunds"

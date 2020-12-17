@@ -12,7 +12,7 @@ class TestCapturePayment(ClientTestCase):
 
     @responses.activate
     def test_capture_payment(self):
-        """Test capture payment"""
+        """Test capture payment."""
         init = mock_file('capture_payment_payload')
         result = mock_file('capture_payment_response')
         url = self.base_url
