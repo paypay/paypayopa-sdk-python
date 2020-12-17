@@ -8,12 +8,12 @@ class TestRefundRequestOrder(ClientTestCase):
 
     def setUp(self):
         super(TestRefundRequestOrder, self).setUp()
-        # self.base_url = '{}/requestOrder/refunds/'.format(self.base_url)
+        self.base_url = '{}/requestOrder/refunds/'.format(self.base_url)
 
     @responses.activate
     def test_refund_request_order(self):
         """
-            Test refund request order
+        Test refund request order
         """
         init = mock_file('refund_request_order_payload')
         result = mock_file('refund_request_order_response')

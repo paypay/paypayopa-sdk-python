@@ -8,13 +8,12 @@ class TestCapturePayment(ClientTestCase):
 
     def setUp(self):
         super(TestCapturePayment, self).setUp()
-        self.base_url = '{}/payments/capture'.format(
-            self.base_url)
+        self.base_url = '{}/payments/capture'.format(self.base_url)
 
     @responses.activate
     def testcapture_payment(self):
         """
-            Test capture payment
+        Test capture payment
         """
         init = mock_file('capture_payment_payload')
         result = mock_file('capture_payment_response')

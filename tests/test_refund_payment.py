@@ -13,7 +13,7 @@ class TestRefundPayment(ClientTestCase):
     @responses.activate
     def test_refund_payment(self):
         """
-            Test refund payment
+        Test refund payment
         """
         init = mock_file('refund_payment_payload')
         result = mock_file('refund_payment_response')

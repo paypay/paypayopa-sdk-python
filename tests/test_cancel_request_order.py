@@ -8,6 +8,7 @@ class TestCancelRequestOrder(ClientTestCase):
 
     def setUp(self):
         super(TestCancelRequestOrder, self).setUp()
+        self.base_url = '{}/requestOrder/fakeMerchantId'.format(self.base_url)
 
     @responses.activate
     def test_TestCancelRequestOrder(self):

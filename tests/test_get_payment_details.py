@@ -14,7 +14,7 @@ class TestGetPaymentDetails(ClientTestCase):
     @responses.activate
     def test_get_payment_details(self):
         """
-            Test get payment details.
+        Test get payment details.
         """
         result = mock_file('get_payment_details')
         url = self.base_url

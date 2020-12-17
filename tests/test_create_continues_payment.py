@@ -8,11 +8,12 @@ class TestCreateContinuesPayment(ClientTestCase):
 
     def setUp(self):
         super(TestCreateContinuesPayment, self).setUp()
+        self.base_url = '{}/psubscription/payments'.format(self.base_url)
 
     @responses.activate
     def test_CreateContinuesPayment(self):
         """
-            Test create continues payment.
+        Test create continues payment.
         """
         init = mock_file('create_continues_payment_payload')
         result = mock_file('create_continues_payment_response')

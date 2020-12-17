@@ -13,7 +13,7 @@ class TestDeleteQRCode(ClientTestCase):
     @responses.activate
     def test_qrcode_delete(self):
         """
-            Test delete QR code.
+        Test delete QR code.
         """
         result = mock_file('delete_qrcode')
         url = '{}/{}'.format(self.base_url, 'fake_qr_id')

@@ -8,11 +8,12 @@ class TestCreateRequestOrder(ClientTestCase):
 
     def setUp(self):
         super(TestCreateRequestOrder, self).setUp()
+        self.base_url = '{}/requestOrder'.format(self.base_url)
 
     @responses.activate
     def test_TestCreateRequestOrder(self):
         """
-            Test request order.
+        Test request order.
         """
         init = mock_file('request_order_payload')
         result = mock_file('request_order_response')
