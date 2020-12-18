@@ -23,4 +23,4 @@ class User(Resource):
             raise ValueError("\x1b[31m MISSING REQUEST PARAMS"
                              " \x1b[0m for codeId")
         url = "{}/{}".format(self.base_url, id)
-        return self.delete(None, url, api_id=API_NAMES.UNLINK_USER **kwargs)
+        return self.delete(None, url, api_id=API_NAMES.UNLINK_USER, **kwargs)
