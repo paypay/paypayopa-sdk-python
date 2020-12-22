@@ -1,5 +1,6 @@
 from .base import Resource
 from ..constants.url import URL
+from ..constants.api_list import API_NAMES
 
 
 class Account(Resource):
@@ -21,4 +22,4 @@ class Account(Resource):
         if "referenceId" not in data:
             raise ValueError("\x1b[31m MISSING REQUEST PARAMS "
                              "\x1b[0m for referenceId")
-        return self.post_url(url, data, **kwargs)
+        return self.post_url(url, data, api_id=API_NAMES.CREATE_QR_SESSION, **kwargs)
