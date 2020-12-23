@@ -20,7 +20,7 @@ class User(Resource):
 
     def unlink_user_athorization(self, id=None, **kwargs):
         if id is None:
-            raise ValueError("\x1b[31m MISSING REQUESTs PARAMS"
-                             " \x1b[0m for codeId")
+            raise ValueError("\x1b[31m MISSING REQUEST PARAMS"
+                             " \x1b[0m for code_id")
         url = "{}/{}".format(self.base_url, id)
         return self.delete(None, url, api_id=API_NAMES.UNLINK_USER, **kwargs)
