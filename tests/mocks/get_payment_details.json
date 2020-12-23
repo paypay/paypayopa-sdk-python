@@ -1,0 +1,27 @@
+{
+    "resultInfo": {
+        "code": "fake_code",
+        "message": "string",
+        "codeId": "fake_codeId"
+    },
+    "data": {
+        "paymentId": "string",
+        "status": "CREATED",
+        "acceptedAt": 0,
+        "refunds": {},
+        "captures": {},
+        "revert": {},
+        "merchantPaymentId": "cb31bcc0-3b6c-46e0-9002-e5c4bb1e3d5f",
+        "userAuthorizationId": "string",
+        "amount": {},
+        "requestedAt": 0,
+        "expiresAt": null,
+        "canceledAt": null,
+        "storeId": "string",
+        "terminalId": "string",
+        "orderReceiptNumber": "string",
+        "orderDescription": "string",
+        "orderItems": [],
+        "metadata": {}
+    }
+}

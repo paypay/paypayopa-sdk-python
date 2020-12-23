@@ -1,0 +1,75 @@
+{
+    "resultInfo": {
+        "code": "string",
+        "message": "string",
+        "codeId": "string"
+    },
+    "data": {
+        "paymentId": "string",
+        "status": "AUTHORIZED",
+        "acceptedAt": 0,
+        "refunds": {
+            "data": [
+                {
+                    "status": "CREATED",
+                    "acceptedAt": 0,
+                    "merchantRefundId": "string",
+                    "paymentId": "string",
+                    "amount": {
+                        "amount": 0,
+                        "currency": "JPY"
+                    },
+                    "requestedAt": 0,
+                    "reason": "string"
+                }
+            ]
+        },
+        "captures": {
+            "data": [
+                {
+                    "acceptedAt": 0,
+                    "merchantCaptureId": "string",
+                    "amount": {
+                        "amount": 0,
+                        "currency": "JPY"
+                    },
+                    "orderDescription": "string",
+                    "requestedAt": 0,
+                    "expiresAt": null,
+                    "status": "USER_REQUESTED"
+                }
+            ]
+        },
+        "revert": {
+            "acceptedAt": 0,
+            "merchantRevertId": "string",
+            "requestedAt": 0,
+            "reason": "string"
+        },
+        "merchantPaymentId": "string",
+        "userAuthorizationId": "string",
+        "amount": {
+            "amount": 0,
+            "currency": "JPY"
+        },
+        "requestedAt": 0,
+        "expiresAt": null,
+        "storeId": "string",
+        "terminalId": "string",
+        "orderReceiptNumber": "string",
+        "orderDescription": "string",
+        "orderItems": [
+            {
+                "name": "string",
+                "category": "string",
+                "quantity": 1,
+                "productId": "string",
+                "unitPrice": {
+                    "amount": 0,
+                    "currency": "JPY"
+                }
+            }
+        ],
+        "metadata": {}
+    }
+}

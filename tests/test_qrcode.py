@@ -12,6 +12,7 @@ class TestClientQRCode(ClientTestCase):
 
     @responses.activate
     def test_order_create(self):
+        """Test create QR code."""
         init = mock_file('create_qrcode')
         result = mock_file('create_qrcode_response')
         url = self.base_url

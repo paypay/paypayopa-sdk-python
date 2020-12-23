@@ -3,6 +3,7 @@ from ..constants.url import URL
 from ..constants.api_list import API_NAMES
 import datetime
 
+
 class Code(Resource):
     def __init__(self, client=None):
         super(Code, self).__init__(client)
@@ -44,7 +45,7 @@ class Code(Resource):
     def get_payment_details(self, id, **kwargs):
         url = "{}/{}/{}".format(self.base_url, 'payments', id)
         if id is None:
-            raise ValueError("\x1b[31m MISSING REQUEST PARAMS"
+            raise ValueError("\x1b[31m MISSING REQUESTS PARAMS"
                              " \x1b[0m for merchantPaymentId")
         return self.fetch(None, url, None, api_id=API_NAMES.GET_QR_PAYMENT, **kwargs)
 
