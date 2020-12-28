@@ -21,3 +21,4 @@ class API_NAMES(object):
     UNLINK_USER = "v2_unlinkUser"
     CREATE_QR_SESSION = "v1_qrSession"
     GIVE_CASHBACK = 'v2_giveCashback'
+    REVERSE_CASHBACK = 'v2_reverseCashback'
