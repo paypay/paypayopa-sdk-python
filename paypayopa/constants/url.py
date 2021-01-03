@@ -1,4 +1,5 @@
 class URL(object):
+    REVERSE_CASHBACK = None
     SANDBOX_BASE_URL = 'https://stg-api.sandbox.paypay.ne.jp'
     PRODUCTION_BASE_URL = 'https://api.paypay.ne.jp'
     RESOLVE = 'https://developer.paypay.ne.jp/develop/resolve'
@@ -8,3 +9,4 @@ class URL(object):
     PENDING_PAYMENT = "/v1/requestOrder"
     USER_AUTH = "/v2/user/authorizations"
     GIVE_CASHBACK = "/v2/cashback"
+    REVERSAL_CASHBACK = "/v2/cashback_reversal"
