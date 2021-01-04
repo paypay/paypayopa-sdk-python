@@ -678,6 +678,92 @@ For details of all the request and response parameters , check our [API Document
 
 <hr>
 
+### Cashback
+
+Paypay Cashback API can give users some balance.
+If you use Cashback API, you should authorize paypay user to use **create_qr_session** sdk.
+
+#### Give Cashback 
+
+| Field  | Required  |Type   | Description  |  
+|---|---|---|---|
+|merchantCashbackId   |  Yes |string <= 64 characters  |The unique cashback transaction id provided by merchant  |
+|userAuthorizationId   |  Yes |string <= 64 characters  |The paypay user reference id provided by PayPay |
+|amount   |  Yes |integer <= 11 characters  |The amount to cashback |
+|currency   |  Yes |string |"JPY" |
+|requestedAt   |  Yes |integer |Epoch timestamp in seconds |
+|orderDescription   |  No |string <= 255 characters |Description of the order |
+|walletType   |  No |string  |Wallet type |
+|expiryDate   |  No |date  |The date on which the Cashback Expires |
+|metadata   |  No |string  |Extra information the merchant want to add |
+
+```python
+payload = {
+    "merchantCashbackId": "ab31bcc0-3b6c-46e0-9002-e5c4bb1e3d5f",
+    "userAuthorizationId": "3b6c-a7c9-9002-e5c4bb1e3d5f",
+    "amount": {
+        "amount": 100,
+        "currency": "JPY"
+    },
+    "requestedAt": 1609749559,
+    "orderDescription": "order description",
+    "walletType": "PREPAID",
+    "expiryDate": None,
+    "metadata": ""
+}
+client.Cashback.give_cashback(payload)
+```
+#### Check Cashback Details 
+
+| Field  | Required  |Type   | Description  |  
+|---|---|---|---|
+|merchantCashbackId   |  Yes |string <= 64 characters  |The unique cashback transaction id provided by merchant  |
+
+```python  
+merchant_cashback_id = "ab31bcc0-3b6c-46e0-9002-e5c4bb1e3d5f"
+client.Cashback.check_give_cashback(merchant_cashback_id)
+```
+
+#### Reverse Cashback
+
+| Field  | Required  |Type   | Description  |  
+|---|---|---|---|
+|merchantCashbackReversalId   |  Yes |string <= 64 characters  |The unique reversal cashback transaction id provided by merchant  |
+|merchantCashbackId   |  Yes |string <= 64 characters  |The unique cashback transaction id provided by merchant  |
+|amount   |  Yes |integer <= 11 characters  |The amount to cashback |
+|currency   |  Yes |string |"JPY" |
+|reason   |  No |string <= 255 characters |Reason for reversing the cashback |
+|metadata   |  No |string  |Extra information the merchant want to add |
+
+```python
+payload = {
+    "merchantCashbackReversalId": "e031bcc0-3b6c-9a7d-9002-e5c4cc1e3d5f",
+    "merchantCashbackId": "ab31bcc0-3b6c-46e0-9002-e5c4bb1e3d5f",
+    "amount": {
+        "amount": 100,
+        "currency": "JPY"
+    },
+    "requestedAt": 1609749559,
+    "reason": "reversal reason",
+    "metadata": {}
+}
+client.Cashback.reverse_cashback(payload)
+```
+
+#### Check Cashback Reversal Details
+
+| Field  | Required  |Type   | Description  |  
+|---|---|---|---|
+|merchantCashbackReversalId   |  Yes |string <= 64 characters  |The unique reversal cashback transaction id provided by merchant  |
+|merchantCashbackId   |  Yes |string <= 64 characters  |The unique cashback transaction id provided by merchant  |
+
+```python
+merchant_cashback_reversal_id = "e031bcc0-3b6c-9a7d-9002-e5c4cc1e3d5f"
+merchant_cashback_id = "ab31bcc0-3b6c-46e0-9002-e5c4bb1e3d5f"
+client.Cashback.check_reversal_cashback(merchant_cashback_reversal_id, merchant_cashback_id)
+```
+
+
 ### Get refund details of a Pending payment
 
 So the user has decided to return the goods they have purchased and needs to be given a refund. Following are the important parameters that you can provide for this method:
