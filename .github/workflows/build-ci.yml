@@ -41,12 +41,14 @@ jobs:
         ./cc-test-reporter before-build
 
     - name: test script
-      run: pytest --cov=tests/ --cov-report xml
+      run: pytest tests/
 
     - name: Coveralls
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: coveralls
+      run: |
+        coverage run --source=paypayopa -m pytest tests/
+        coveralls
 
     - name: Upload to CoPilot
       run: bash <(curl -s https://copilot.blackducksoftware.com/ci/githubactions/scripts/upload)
