@@ -22,7 +22,7 @@ jobs:
       env:
         COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
       run: |
-        echo repo_token: ${COVERALLS_REPO_TOKEN} > ./.coveralls.yml
+        export COVERALLS_REPO_TOKEN=${COVERALLS_REPO_TOKEN}
     
     - name: Install dependencies
       run: |
