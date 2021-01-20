@@ -33,7 +33,7 @@ class Cashback(Resource):
                              "\x1b[0m for walletType")
         return self.post_url(url, data, api_id=API_NAMES.GIVE_CASHBACK, **kwargs)
 
-    def check_give_cashback(self, merchant_cashback_id, **kwargs):
+    def check_cashback_detail(self, merchant_cashback_id, **kwargs):
         if merchant_cashback_id is None:
             raise ValueError("\x1b[31m MISSING merchantCashbackId")
         url = "{}/{}".format(self.give_base_url, merchant_cashback_id)
@@ -60,7 +60,7 @@ class Cashback(Resource):
                              "\x1b[0m for requestedAt")
         return self.post_url(url, data, api_id=API_NAMES.REVERSAL_CASHBACK, **kwargs)
 
-    def check_reversal_cashback(self, merchant_cashback_reversal_id=None, merchant_cashback_id=None, **kwargs):
+    def check_cashback_reversal_detail(self, merchant_cashback_reversal_id=None, merchant_cashback_id=None, **kwargs):
         url = "{}/{}/{}".format(self.reverse_base_url, merchant_cashback_reversal_id, merchant_cashback_id)
         if merchant_cashback_reversal_id is None:
             raise ValueError("\x1b[31m MISSING merchantCashbackReversalId")
