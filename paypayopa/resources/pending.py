@@ -45,12 +45,12 @@ class Pending(Resource):
         return self.delete(None, url, None, api_id=API_NAMES.CANCEL_REQUEST_ORDER, **kwargs)
 
     def refund_payment(self, data={}, **kwargs):
-        url = "{}".format('/v2/refunds')
-        if "requestedAt" not in data:
-            data['requestedAt'] = datetime.datetime.now().second
+        url = "{}".format(URL.REFUNDS)
         if "merchantPaymentId" not in data:
             raise ValueError("\x1b[31m MISSING REQUEST PARAMS "
                              "\x1b[0m for merchantPaymentId")
+        if "requestedAt" not in data:
+            data['requestedAt'] = datetime.datetime.now().second
         if "paymentId" not in data:
             raise ValueError("\x1b[31m MISSING REQUEST PARAMS "
                              "\x1b[0m for userAuthorizationId")
