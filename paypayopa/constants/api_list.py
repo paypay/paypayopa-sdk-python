@@ -14,7 +14,7 @@ class API_NAMES(object):
     CREATE_REQUEST_ORDER = "v1_createRequestOrder"
     GET_REQUEST_ORDER = "v1_getRequestOrder"
     CANCEL_REQUEST_ORDER = "v1_cancelRequestOrder"
-    REFUND_REQUEST_ORDER = "v1_createRequestOrderRefund"
+    REFUND_REQUEST_ORDER = "v2_createRefundPayment"
     GET_SECURE_USER_PROFILE = "v2_getSecureUserProfile"
     CHECK_BALANCE = "v2_checkWalletBalance"
     GET_USER_AUTH_STATUS = "v2_userAuthStatus"
