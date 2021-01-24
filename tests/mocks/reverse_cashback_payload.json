@@ -1,0 +1,11 @@
+{
+  "merchantCashbackReversalId": "xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+  "merchantCashbackId": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+  "amount": {
+    "amount": 100,
+    "currency": "JPY"
+  },
+  "requestedAt": 1609749559,
+  "reason": "reversal reason",
+  "metadata": {}
+}

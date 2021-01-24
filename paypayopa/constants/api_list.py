@@ -20,3 +20,5 @@ class API_NAMES(object):
     GET_USER_AUTH_STATUS = "v2_userAuthStatus"
     UNLINK_USER = "v2_unlinkUser"
     CREATE_QR_SESSION = "v1_qrSession"
+    GIVE_CASHBACK = 'v2_giveCashback'
+    REVERSAL_CASHBACK = 'v2_reversalCashback'
