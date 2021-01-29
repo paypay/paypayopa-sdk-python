@@ -20,5 +20,7 @@ class API_NAMES(object):
     GET_USER_AUTH_STATUS = "v2_userAuthStatus"
     UNLINK_USER = "v2_unlinkUser"
     CREATE_QR_SESSION = "v1_qrSession"
-    GIVE_CASHBACK = 'v2_giveCashback'
-    REVERSAL_CASHBACK = 'v2_reversalCashback'
+    CREATE_CASHBACK_REQUEST = "v2_createCashBackRequest" #GIVE_CASHBACK = 'v2_createRefundPayment'
+    GET_CASHBACK_DETAILS = "v2_getCashbackDetails" #REVERSAL_CASHBACK = 'v2_reversalCashback'
+    CREATE_REVERSE_CASHBACK_REQUEST = "v2_createReverseCashBackRequest"
+    GET_REVERESED_CASHBACK_DETAILS = "v2_getReversedCashBackDetails"
