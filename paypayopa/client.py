@@ -100,7 +100,7 @@ class Client:
 
     def decode_jwt(self, secret, token):
         try:
-            ca = jwt.decode(token, secret, verify=False)
+            ca = jwt.decode(token, base64.b64decode(secret), algorithm='HS256')
             return ca.get('userAuthorizationId'), ca.get('referenceId')
         except Exception as e:
             print("JWT Signature verification failed: ", e)
