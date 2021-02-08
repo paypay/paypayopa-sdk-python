@@ -306,6 +306,27 @@ Once the user has granted authorization, we will return the UserAuthorizationID 
 client.decode_jwt(API_SECRET, token)
 ```
 
+### Unlink a user from the client
+
+| Field  | Required  |Type   | Description  |  
+|---|---|---|---|
+|userAuthorizationId|yes|string <= 64 characters|The PayPay user reference id returned by the user authorization flow|
+
+```py
+# Calling the method to unlink a Payment
+response = client.User.unlink_user_athorization('userAuthorizationId')
+# Printing if the method call was SUCCESS
+print(response.resultInfo.code)
+```
+
+Did you get **SUCCESS** in the print statement above, if yes then the API execution has happened correctly.
+
+For details of all the request and response parameters , check our [API Documentation guide](https://www.paypay.ne.jp/opa/doc/v1.0/direct_debit#operation/unlinkUser).
+
+<hr>
+
+
+
 ### Create a payment
 In order to take a payment, you will need to send a request to us with the following parameters:
 
