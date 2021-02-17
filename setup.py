@@ -18,7 +18,7 @@ setup(
         'Documentation': 'https://github.com/paypay/paypayopa-sdk-python/README.md',
         'Source': 'https://github.com/paypay/paypayopa-sdk-python',
     },
-    install_requires=["requests", "uuid", "pyjwt"],
+    install_requires=["requests", "pyjwt"],
     include_package_data=True,
     package_dir={'paypayopa': 'paypayopa',
                  'paypayopa.resources': 'paypayopa/resources',
