@@ -48,7 +48,7 @@ class Pending(Resource):
         url = "{}".format(URL.REFUNDS)
         if "merchantRefundId" not in data:
             raise ValueError("\x1b[31m MISSING REQUEST PARAMS "
-                             "\x1b[0m for merchantPaymentId")
+                             "\x1b[0m for merchantRefundId")
         if "requestedAt" not in data:
             data['requestedAt'] = datetime.datetime.now().second
         if "paymentId" not in data:
