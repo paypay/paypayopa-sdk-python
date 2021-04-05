@@ -1,4 +1,4 @@
-# Paypay OPA SDK - Python
+# Paypay OPA SDK - Python.
 
 [![License](https://img.shields.io/:license-apache2.0-red.svg)](https://opensource.org/licenses/Apache-2.0)
 [![PyPI Version](https://img.shields.io/pypi/v/paypayopa.svg)](https://pypi.python.org/pypi/paypayopa)
