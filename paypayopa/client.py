@@ -33,13 +33,15 @@ class Client:
     """PayPay client class"""
     DEFAULTS = {
         'sandbox_base_url': URL.SANDBOX_BASE_URL,
-        'production_base_url': URL.PRODUCTION_BASE_URL
+        'production_base_url': URL.PRODUCTION_BASE_URL,
+        'perf_mode_base_url': URL.PERF_BASE_URL
     }
 
     def __init__(self,
                  session=None,
                  auth=None,
                  production_mode=False,
+                 perf_mode=False,
                  **options):
         """
         Initialize a Client object with session,
@@ -48,6 +50,7 @@ class Client:
         self.session = session or requests.Session()
         self.auth = auth
         self.production_mode = production_mode
+        self.perf_mode = perf_mode
         self.assume_merchant = ""
 
         self.base_url = self._set_base_url(**options)
@@ -70,6 +73,8 @@ class Client:
             base_url = self.DEFAULTS['sandbox_base_url']
         if self.production_mode is True:
             base_url = self.DEFAULTS['production_base_url']
+        if self.perf_mode is True:
+            base_url = self.DEFAULTS['perf_mode_base_url']
         if 'base_url' in options:
             base_url = options['base_url']
             del (options['base_url'])
