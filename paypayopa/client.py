@@ -41,7 +41,6 @@ class Client:
                  session=None,
                  auth=None,
                  production_mode=False,
-                 perf_mode=False,
                  **options):
         """
         Initialize a Client object with session,
@@ -50,7 +49,7 @@ class Client:
         self.session = session or requests.Session()
         self.auth = auth
         self.production_mode = production_mode
-        self.perf_mode = perf_mode
+        self.perf_mode = options.get('perf_mode')
         self.assume_merchant = ""
 
         self.base_url = self._set_base_url(**options)
