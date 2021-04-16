@@ -1,6 +1,7 @@
 class URL(object):
     SANDBOX_BASE_URL = 'https://stg-api.sandbox.paypay.ne.jp'
     PRODUCTION_BASE_URL = 'https://api.paypay.ne.jp'
+    PERF_BASE_URL = 'https://perf-api.paypay.ne.jp'
     RESOLVE = 'https://developer.paypay.ne.jp/develop/resolve'
     CODE = "/v2/codes"
     PAYMENT = "/v2/payments"
