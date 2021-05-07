@@ -316,7 +316,7 @@ client.decode_jwt(API_SECRET, token)
 # Calling the method to unlink a Payment
 response = client.User.unlink_user_athorization('userAuthorizationId')
 # Printing if the method call was SUCCESS
-print(response.resultInfo.code)
+print(response["resultInfo"]["code"])
 ```
 
 Did you get **SUCCESS** in the print statement above, if yes then the API execution has happened correctly.
@@ -348,7 +348,7 @@ request = {
 # Calling the method to create a payment
 response = client.Payment.create(request)
 # Printing if the method call was SUCCESS, this does not mean the payment was a success
-print(response.resultInfo.code)
+print(response["resultInfo"]["code"])
 ```
 
 Did you get **SUCCESS** in the print statement above, if yes then the API execution has happened correctly.
@@ -368,14 +368,14 @@ Now that you have created a payment, in case the payment request timeout, you ca
 # Calling the method to get payment details
 response = client.Payment.get_payment_details("<merchantPaymentId>")
 # Printing if the method call was SUCCESS, this does not mean the payment was a success
-print(response.resultInfo.code)
+print(response["resultInfo"]["code"])
 # Printing if the transaction status for the code has COMPLETED/ AUTHORIZED
-print(response.data.status)
+print(response["data"]["status"])
 ```
 
 Did you get **SUCCESS** in the print statement above, if yes then the API execution has happen correctly.
 
-On successful payment, the status in response.data.status will be **COMPLETED**
+On successful payment, the status in response["data"]["status"] will be **COMPLETED**
 For details of all the request and response parameters , check our [API Documentation guide](https://www.paypay.ne.jp/opa/doc/v1.0/webcashier#operation/getPaymentDetails)
 
 <hr>
@@ -397,7 +397,7 @@ Following are the important parameters that you can provide for this method:
 # Calling the method to cancel a Payment
 response = client.Payment.cancel_payment("<merchantPaymentId>")
 # Printing if the method call was SUCCESS
-print(response.resultInfo.code)
+print(response["resultInfo"]["code"])
 ```
 
 Did you get **SUCCESS** in the print statement above, if yes then the API execution has happend correctly.
@@ -427,7 +427,7 @@ request = {
 # Calling the method to refund a Payment
 response = client.Payment.refund_payment(request)
 # Printing if the method call was SUCCESS
-print(response.resultInfo.code)
+print(response["resultInfo"]["code"])
 ```
 
 Did you get **SUCCESS** in the print statement above, if yes then the API execution has happened correctly.
@@ -448,7 +448,7 @@ So you want to confirm the status of the refund, maybe because the request for t
 # Calling the method to get Refund Details
 response = client.Payment.refund_details("<merchantRefundId>")
 # Printing if the method call was SUCCESS
-print(response.resultInfo.code)
+print(response["resultInfo"]["code"])
 ```
 Did you get **SUCCESS** in the print statement above, if yes then the API execution has happen correctly.
 
@@ -565,7 +565,7 @@ request_payload = {
 client.Payment.create_continuous_payment(request_payload)
 
 # Printing if the method call was SUCCESS, this does not mean the payment was a success
-print(response.resultInfo.code)
+print(response["resultInfo"]["code"])
 ```
 
 <hr>
@@ -614,12 +614,12 @@ request_payload = {
 client.Pending.create_pending_payment(request_payload)
 
 # Printing if the method call was SUCCESS, this does not mean the payment was a success
-print(response.resultInfo.code)
+print(response["resultInfo"]["code"])
 ```
 
 Did you get **SUCCESS** in the print statement above, if yes then the API execution has happen correctly.
 
-On successful payment, the status in response.data.status will be **COMPLETED**
+On successful payment, the status in response["data"]["status"] will be **COMPLETED**
 For details of all the request and response parameters , check our [API Documentation guide](https://www.paypay.ne.jp/opa/doc/v1.0/pending_payments#operation/createPayment)
 
 <hr>
@@ -635,14 +635,14 @@ Now that you have created a pending payment, in case the payment request timeout
 # Calling the method to get payment details
 response = client.Pending.get_payment_details("<merchantPaymentId>")
 # Printing if the method call was SUCCESS, this does not mean the payment was a success
-print(response.resultInfo.code)
+print(response["resultInfo"]["code"])
 # Printing if the transaction status for the code has COMPLETED/ AUTHORIZED
-print(response.data.status)
+print(response["data"]["status"])
 ```
 
 Did you get **SUCCESS** in the print statement above, if yes then the API execution has happen correctly.
 
-On successful payment, the status in response.data.status will be **COMPLETED**
+On successful payment, the status in response["data"]["status"] will be **COMPLETED**
 For details of all the request and response parameters , check our [API Documentation guide](https://www.paypay.ne.jp/opa/doc/v1.0/pending_payments#operation/getPaymentDetails)
 
 <hr>
@@ -657,14 +657,14 @@ For details of all the request and response parameters , check our [API Document
 # Calling the method to cancel pending payment
 response = client.Pending.cancel_payment("<merchantPaymentId>")
 # Printing if the method call was SUCCESS, this does not mean the payment was a success
-print(response.resultInfo.code)
+print(response["resultInfo"]["code"])
 # Printing if the transaction status for the code has COMPLETED/ AUTHORIZED
-print(response.data.status)
+print(response["data"]["status"])
 ```
 
 Did you get **SUCCESS** in the print statement above, if yes then the API execution has happen correctly.
 
-On successful payment, the status in response.data.status will be **COMPLETED**
+On successful payment, the status in response["data"]["status"] will be **COMPLETED**
 For details of all the request and response parameters , check our [API Documentation guide](https://www.paypay.ne.jp/opa/doc/v1.0/pending_payments#operation/cancelPendingOrder)
 
 <hr>
@@ -694,7 +694,7 @@ payload = {
 client.Pending.refund_payment(refund_payment_details)
 ```
 
-On successful payment, the status in response.data.status will be **COMPLETED**
+On successful payment, the status in response["data"]["status"] will be **COMPLETED**
 For details of all the request and response parameters , check our [API Documentation guide](https://www.paypay.ne.jp/opa/doc/v1.0/pending_payments#operation/refundPayment)
 
 <hr>
@@ -797,14 +797,14 @@ So the user has decided to return the goods they have purchased and needs to be 
 # Calling the method to cancel pending payment
 response = client.Pending.refund_details("<merchantPaymentId>")
 # Printing if the method call was SUCCESS, this does not mean the payment was a success
-print(response.resultInfo.code)
+print(response["resultInfo"]["code"])
 # Printing if the transaction status for the code has COMPLETED/ AUTHORIZED
-print(response.data.status)
+print(response["data"]["status"])
 ```
 
 Did you get **SUCCESS** in the print statement above, if yes then the API execution has happen correctly.
 
-On successful payment, the status in response.data.status will be **COMPLETED**
+On successful payment, the status in response["data"]["status"] will be **COMPLETED**
 For details of all the request and response parameters , check our [API Documentation guide](https://www.paypay.ne.jp/opa/doc/v1.0/pending_payments#operation/getRefundDetails)
 
 
