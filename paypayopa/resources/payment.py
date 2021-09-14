@@ -44,7 +44,7 @@ class Payment(Resource):
     def refund_payment(self, data={}, **kwargs):
         url = "{}/".format('/v2/refunds')
         if "requestedAt" not in data:
-            data['requestedAt'] = datetime.datetime.now().second
+            data['requestedAt'] = int(datetime.datetime.now().timestamp())
         if "merchantRefundId" not in data:
             raise ValueError("\x1b[31m MISSING REQUEST PARAMS "
                              "\x1b[0m for merchantRefundId")
