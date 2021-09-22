@@ -51,7 +51,8 @@ jobs:
     - name: After build
       run: ./cc-test-reporter after-build --coverage-input-type coverage.py --exit-code 0
 
-  - uses: actions/upload-artifact@v2
-    with:
-      name: copilotbdio
-      path: .copilot/copilot_bom_bdio.bdio
+    - uses: actions/upload-artifact@v2
+      if: always()
+      with:
+        name: copilotbdio
+        path: .copilot/copilot_bom_bdio.bdio
