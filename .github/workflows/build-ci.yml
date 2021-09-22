@@ -47,6 +47,11 @@ jobs:
 
     - name: Upload to CoPilot
       run: bash <(curl -s https://copilot.blackducksoftware.com/ci/githubactions/scripts/upload)
+    
+    - uses: actions/upload-artifact@v2
+      with:
+        name: copilotbdio
+        path: .copilot/copilot_bom_bdio.bdio
 
     - name: After build
       run: ./cc-test-reporter after-build --coverage-input-type coverage.py --exit-code 0
