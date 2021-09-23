@@ -55,4 +55,4 @@ jobs:
       if: always()
       with:
         name: copilotbdio
-        path: .copilot/copilot_bom_bdio.bdio
+        path: ./.copilot/copilot_bom_bdio.bdio
