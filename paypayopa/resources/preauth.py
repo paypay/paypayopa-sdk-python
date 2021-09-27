@@ -22,7 +22,7 @@ class Preauth(Resource):
         if "amount" not in data["amount"]:
             raise ValueError("\x1b[31m MISSING REQUEST PARAMS "
                              "\x1b[0m for amount")
-        if type(data["expiresAt"]) != int:
+        if "expiresAt" in data and type(data["expiresAt"]) != int:
             raise ValueError("\x1b[31m expiresAt should be of "
                              "type integer (EPOCH) \x1b[0m")
         if type(data["amount"]["amount"]) != int:
