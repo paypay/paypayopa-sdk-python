@@ -23,6 +23,9 @@ jobs:
         COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
       run: |
         echo repo_token: ${COVERALLS_REPO_TOKEN} > ./.coveralls.yml
+        echo flag-name: run-${{ matrix.python-version }}-$RANDOM >> ./.coveralls.yml
+        tail -n 1 ./.coveralls.yml
+
 
     - name: Install dependencies
       run: |
