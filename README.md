@@ -97,12 +97,12 @@ request = {
         "productId": "67678",
         "unitPrice": {
             "amount": 1,
-            "currency": "JPY"
-        }
+            "currency": "JPY",
+        },
     }],
     "amount": {
         "amount": 1,
-        "currency": "JPY"
+        "currency": "JPY",
     },
 }
 
