@@ -24,10 +24,11 @@ QR Code flow is recommended normally in the following scenarios
 - Printing a QR Code for Bill Payment
 
 ## Understanding the Payment Flow
-Following diagram defines the flow for Dynamic QR Code.
+The following diagram defines the flow for Dynamic QR Code.
+
 ![](https://www.paypay.ne.jp/opa/doc/v1.0/imgs/dynamicqrcode-sequence.png)
 
-We recommend that the merchant implements a Polling of the Get payment Details API with a 4-5 second interval in order to know the status of the transaction.
+We recommend that the merchant implements a Polling of the Get Payment Details API with a 4-5 second interval in order to know the status of the transaction.
 
 ## Let's get Started
 Once you have understood the payment flow, before we start the integration make sure you have:
