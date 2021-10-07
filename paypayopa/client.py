@@ -242,3 +242,5 @@ class Client:
             content_type,
             _data)
         return _data, _auth_header
+
+print("Pointless print")
