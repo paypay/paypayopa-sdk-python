@@ -39,8 +39,10 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: coveralls -v --service=github
 
-    - name: Upload to CoPilot
-      run: bash <(curl -s https://copilot.blackducksoftware.com/ci/githubactions/scripts/upload)
+    - name: Snyk test
+      uses: snyk/actions/python-3.8@master
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
     - name: After build
       run: ./cc-test-reporter after-build --coverage-input-type coverage.py --exit-code 0
