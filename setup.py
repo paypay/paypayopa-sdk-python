@@ -1,9 +1,14 @@
 from setuptools import setup
 
 from os import path
+
 this_directory = path.abspath(path.dirname(__file__))
-with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
-    long_description = f.read()
+try:
+    with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
+        long_description = f.read()
+except FileNotFoundError:
+    # This happens when `snyk test` analyzes `setup.py` in a temporary directory.
+    long_description = 'See https://github.com/paypay/paypayopa-sdk-python'
 
 setup(
     name="paypayopa",
@@ -19,6 +24,9 @@ setup(
         'Source': 'https://github.com/paypay/paypayopa-sdk-python',
     },
     install_requires=["requests", "pyjwt"],
+    extras_require={
+        'test': ['responses'],
+    },
     include_package_data=True,
     package_dir={'paypayopa': 'paypayopa',
                  'paypayopa.resources': 'paypayopa/resources',
