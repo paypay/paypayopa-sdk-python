@@ -3,7 +3,8 @@ from setuptools import setup
 from os import path
 
 def fetch_long_description():
-    """Loads the `long_description` from README.md.
+    """
+    Loads the `long_description` from README.md.
 
     If `README.md` does not exist, returns a placeholder `long_description`.
     This is necessary when setup.py is analyzed by a tool like `snyk test`.
