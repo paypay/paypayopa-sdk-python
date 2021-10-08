@@ -3,12 +3,7 @@ from setuptools import setup
 from os import path
 
 def fetch_long_description():
-    """
-    Loads the `long_description` from README.md.
-
-    If `README.md` does not exist, returns a placeholder `long_description`.
-    This is necessary when setup.py is analyzed by a tool like `snyk test`.
-    """
+    """Loads the `long_description` from README.md."""
     this_directory = path.abspath(path.dirname(__file__))
     try:
         with open(path.join(this_directory, 'README.md'), encoding='utf-8') as readme_file:
