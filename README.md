@@ -97,12 +97,12 @@ request = {
         "productId": "67678",
         "unitPrice": {
             "amount": 1,
-            "currency": "JPY"
-        }
+            "currency": "JPY",
+        },
     }],
     "amount": {
         "amount": 1,
-        "currency": "JPY"
+        "currency": "JPY",
     },
 }
 
@@ -182,7 +182,7 @@ So the user has decided to return the goods they have purchased and needs to be 
 |reason   |  No |integer <= 11 characters  |The reason for refund |
 
 ```py
-payload = {
+refund_payment_details = {
     "assumeMerchant": "cb31bcc0-3b6c-46e0-9002-e5c4bb1e3d5f",
     "merchantRefundId": "3b6c-46e0-9002-e5c4bb1e3d5f",
     "paymentId": "456787656",
@@ -218,8 +218,8 @@ request_payload = {
         "amount": 1,
         "currency": "JPY"
     },
-    merchantCapture_id: "31bcc0-3b6c-46e0-9002",
-    orderDescription: "Example - Mune Cake shop"
+    "merchantCaptureId": "31bcc0-3b6c-46e0-9002",
+    "orderDescription": "Example - Mune Cake shop",
 }
 
 client.Payment.capture_payment(request_payload)
@@ -239,9 +239,9 @@ So the order has cancelled the order while the payment was still Authorized, ple
 
 ```py
 request_payload = {
-    "merchantRevertId": "cb31bcc0-3b6c-46e0-9002-e5c4bb1e3d5f"
-    "paymentId": "1585537300"
-    "reason":  "reason for refund"
+    "merchantRevertId": "cb31bcc0-3b6c-46e0-9002-e5c4bb1e3d5f",
+    "paymentId": "1585537300",
+    "reason": "reason for refund",
 }
 
 client.Payment.revert_payment(request_payload)
@@ -340,10 +340,10 @@ In order to take a payment, you will need to send a request to us with the follo
 ```py
 # Creating the payload to create a Payment, additional parameters can be added basis the API Documentation
 request = {
-    merchantPaymentId = "my_payment_id",
-    userAuthorizationId = "my_user_authorization_id",
-    amount = {amount = 1, currency = "JPY"},
-    orderDescription = "Mune's Favourite Cake"
+    "merchantPaymentId": "my_payment_id",
+    "userAuthorizationId": "my_user_authorization_id",
+    "amount": {"amount": 1, "currency": "JPY"},
+    "orderDescription": "Mune's Favourite Cake",
 }
 # Calling the method to create a payment
 response = client.Payment.create(request)
@@ -417,12 +417,12 @@ So the user has decided to return the goods they have purchased and needs to be 
 |reason   |  No |integer <= 11 characters  |The reason for refund |
 
 ```py
-# Creating the payload to refund a Payment, additional parameters can be added basis the API Documentation
+# Creating the payload to refund a Payment, additional parameters can be added based on the API Documentation
 request = {
-    merchantRefundId = "merchant_refund_id"
-    paymentId = "paypay_payment_id
-    amount = 1
-    reason = "reason for refund"
+    "merchantRefundId": "merchant_refund_id",
+    "paymentId": "paypay_payment_id",
+    "amount": 1,
+    "reason": "reason for refund",
 }
 # Calling the method to refund a Payment
 response = client.Payment.refund_payment(request)
@@ -554,12 +554,12 @@ In order to acquire an authorization you need to create a JWT Token -
 request_payload = {
     "merchantPaymentId": "merchant_payment_id",
     "userAuthorizationId": "my_user_authorization_id",
-    "orderDescription":"Mune's Favourite Cake",
+    "orderDescription": "Mune's Favourite Cake",
     "amount": {
-          "amount": 1,
-          "currency": "JPY"
-          }
+        "amount": 1,
+        "currency": "JPY"
     }
+}
 
 # Calling the method to create a continuous payment authorization
 client.Payment.create_continuous_payment(request_payload)
@@ -591,12 +591,12 @@ request_payload = {
     "amount": 1,
     "currency": "JPY"
   },
-  "requestedAt": 01918189,
-  "expiryDate": null,
+  "requestedAt": 1632123456,
+  "expiryDate": None,
   "storeId": "001",
   "terminalId": "0042",
   "orderReceiptNumber": "0878",
-  "orderDescription":"Example - Mune Cake shop",
+  "orderDescription": "Example - Mune Cake shop",
     "orderItems": [{
         "name": "Moon cake",
         "category": "pasteries",
