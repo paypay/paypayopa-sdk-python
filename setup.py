@@ -1,15 +1,21 @@
 from setuptools import setup
 
 from os import path
-this_directory = path.abspath(path.dirname(__file__))
-with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
-    long_description = f.read()
+
+def fetch_long_description():
+    """Loads the `long_description` from README.md."""
+    this_directory = path.abspath(path.dirname(__file__))
+    try:
+        with open(path.join(this_directory, 'README.md'), encoding='utf-8') as readme_file:
+            return readme_file.read()
+    except FileNotFoundError:
+        return 'See https://github.com/paypay/paypayopa-sdk-python'
 
 setup(
     name="paypayopa",
     version="0.0.0",
     description="PayPay OPA SDK",
-    long_description=long_description,
+    long_description=fetch_long_description(),
     long_description_content_type='text/markdown',
     author="Team PayPay",
     author_email="opensource@paypay-corp.co.jp",
@@ -19,6 +25,9 @@ setup(
         'Source': 'https://github.com/paypay/paypayopa-sdk-python',
     },
     install_requires=["requests", "pyjwt"],
+    extras_require={
+        'test': ['responses'],
+    },
     include_package_data=True,
     package_dir={'paypayopa': 'paypayopa',
                  'paypayopa.resources': 'paypayopa/resources',
