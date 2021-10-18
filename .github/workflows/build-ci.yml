@@ -35,7 +35,7 @@ jobs:
         ./cc-test-reporter before-build
 
     - name: test script
-      run: pytest --cov=tests/ --cov-report xml
+      run: pytest --cov=paypayopa/ --cov-report xml
 
     # Run snyk test and use snyk-to-html to upload an artifact.
     - name: Install snyk
