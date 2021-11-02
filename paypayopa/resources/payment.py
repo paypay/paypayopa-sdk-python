@@ -10,7 +10,7 @@ class Payment(Resource):
         self.base_url = URL.PAYMENT
 
     def create(self, data={}, **kwargs):
-        url = "{}/{}".format(self.base_url, 'payments')
+        url = self.base_url
         if "requestedAt" not in data:
             data['requestedAt'] = int(datetime.datetime.now().timestamp())
         if "merchantPaymentId" not in data:
