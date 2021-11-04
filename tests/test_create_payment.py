@@ -8,7 +8,6 @@ class TestCreatePayment(ClientTestCase):
 
     def setUp(self):
         super(TestCreatePayment, self).setUp()
-        self.base_url = '{}/payments'.format(self.base_url)
 
     @responses.activate
     def test_create_payment(self):
