@@ -35,30 +35,7 @@ jobs:
         ./cc-test-reporter before-build
 
     - name: test script
-      run: pytest --cov=tests/ --cov-report xml
-
-    # Run snyk test and use snyk-to-html to upload an artifact.
-    - name: Install snyk
-      run: npm install snyk
-
-    - name: Install snyk-to-html
-      run: npm install snyk-to-html
-
-    - name: snyk -v
-      run: ./node_modules/.bin/snyk -v
-    - name: snyk auth
-      run: ./node_modules/.bin/snyk auth ${{ secrets.SNYK_TOKEN }}
-    - name: snyk test
-      run: ./node_modules/.bin/snyk test --json --file=setup.py > snyk-test-results.json
-    - name: Generate snyk HTML results
-      if: always()
-      run: ./node_modules/.bin/snyk-to-html -d -i snyk-test-results.json -o snyk-test-results.html
-    - name: Upload snyk-test-results artifact
-      uses: actions/upload-artifact@v2
-      if: always()
-      with:
-        name: snyk-results
-        path: snyk-test-results.html
+      run: pytest --cov=paypayopa/ --cov-report xml
 
     - name: Coveralls
       env:
