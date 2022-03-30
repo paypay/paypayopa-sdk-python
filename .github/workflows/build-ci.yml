@@ -6,7 +6,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      CC_TEST_REPORTER_ID: 901d3045718f66236a651e6fb24639a8d66ff4e6f631a76fcee254136b5ffe8b
+      CC_TEST_REPORTER_ID: 84299815950f2a6aeca847b60f89cc438aa3fbd0b0f3f92a447a0febcd9140bf
     strategy:
       matrix:
         python-version: [3.5, 3.6, 3.7, 3.8, 3.9]
