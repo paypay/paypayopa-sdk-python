@@ -27,19 +27,20 @@ class Code(Resource):
         if "currency" not in data["amount"]:
             raise ValueError("\x1b[31m MISSING REQUEST PARAMS"
                              " \x1b[0m for currency")
-        for item in data["orderItems"]:
-            if "name" not in item:
-                raise ValueError("\x1b[31m MISSING REQUEST PARAMS"
-                                 " \x1b[0m for orderItem Name")
-            if "quantity" not in item:
-                raise ValueError("\x1b[31m MISSING REQUEST PARAMS"
-                                 " \x1b[0m for orderItem quantity")
-            if "amount" not in item["unitPrice"]:
-                raise ValueError("\x1b[31m MISSING REQUEST PARAMS"
-                                 " \x1b[0m for orderItem.amount.unitPrice")
-            if "currency" not in item["unitPrice"]:
-                raise ValueError("\x1b[31m MISSING REQUEST PARAMS"
-                                 " \x1b[0m for orderItem.amount.currency")
+        if "orderItems" in data:
+            for item in data["orderItems"]:
+                if "name" not in item:
+                    raise ValueError("\x1b[31m MISSING REQUEST PARAMS"
+                                     " \x1b[0m for orderItem Name")
+                if "quantity" not in item:
+                    raise ValueError("\x1b[31m MISSING REQUEST PARAMS"
+                                     " \x1b[0m for orderItem quantity")
+                if "amount" not in item["unitPrice"]:
+                    raise ValueError("\x1b[31m MISSING REQUEST PARAMS"
+                                     " \x1b[0m for orderItem.amount.unitPrice")
+                if "currency" not in item["unitPrice"]:
+                    raise ValueError("\x1b[31m MISSING REQUEST PARAMS"
+                                     " \x1b[0m for orderItem.amount.currency")
         return self.post_url(url, data, api_id=API_NAMES.CREATE_QRCODE, **kwargs)
 
     def get_payment_details(self, id, **kwargs):
