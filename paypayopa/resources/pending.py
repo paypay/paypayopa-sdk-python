@@ -69,5 +69,5 @@ class Pending(Resource):
         if id is None:
             raise ValueError("\x1b[31m MISSING REQUEST PARAMS"
                              " \x1b[0m for merchantRefundId")
-        url = "{}/{}".format(self.base_url, id)
-        return self.fetch(None, url, None, api_id=API_NAMES.CANCEL_REQUEST_ORDER, **kwargs)
+        url = "{}/{}".format('/v2/refunds', id)
+        return self.fetch(None, url, None, api_id=API_NAMES.GET_REFUND, **kwargs)
