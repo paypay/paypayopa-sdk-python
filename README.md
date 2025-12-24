@@ -14,6 +14,8 @@
 [![BCH compliance](https://bettercodehub.com/edge/badge/paypay/paypayopa-sdk-python?branch=master)](https://bettercodehub.com/)
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/4222/badge)](https://bestpractices.coreinfrastructure.org/projects/4222)
 
+> **Note:** This SDK is provided to assist merchants in integrating with our APIs. While it remains available for use, ongoing maintenance is limited and updates may not be released regularly. Most new features and enhancements are introduced directly at the API level, and we recommend referring to the latest API documentation for the most up-to-date capabilities.
+
 So you are a developer and want to start accepting payments using PayPay. PayPay's Payment SDK is the simplest way to achieve the integration. With PayPay's Payment SDK, you can build a custom Payment checkout process to suit your unique business needs and branding guidelines.
 
 # When to use QR Code Payments
@@ -280,7 +282,7 @@ First of all you need to acquire a user Authorization. Following diagram defines
 
 In order to acquire an authorization you need to create a JWT Token -
 
-|cliam|	required | type|	description|
+|claim|	required | type|	description|
 |---|---|---|---|
 |iss| yes|	string|	the merchant name|
 |exp| yes|	number|	The expiration date of the authorization page URL. Set with epoch time stamp (seconds).
@@ -373,7 +375,7 @@ print(response["resultInfo"]["code"])
 print(response["data"]["status"])
 ```
 
-Did you get **SUCCESS** in the print statement above, if yes then the API execution has happen correctly.
+Did you get **SUCCESS** in the print statement above, if yes then the API execution has happened correctly.
 
 On successful payment, the status in response["data"]["status"] will be **COMPLETED**
 For details of all the request and response parameters , check our [API Documentation guide](https://www.paypay.ne.jp/opa/doc/v1.0/webcashier#operation/getPaymentDetails)
@@ -400,14 +402,14 @@ response = client.Payment.cancel_payment("<merchantPaymentId>")
 print(response["resultInfo"]["code"])
 ```
 
-Did you get **SUCCESS** in the print statement above, if yes then the API execution has happend correctly.
+Did you get **SUCCESS** in the print statement above, if yes then the API execution has happened correctly.
 
 For details of all the request and response parameters , check our [API Documentation guide](https://www.paypay.ne.jp/opa/doc/v1.0/direct_debit#operation/cancelPayment)
 
 <hr>
 
 ### Refund a payment
-So the user has decided to return the goods they have purchased and needs to be giveb a refund. Following are the important parameters that you can provide for this method:
+So the user has decided to return the goods they have purchased and needs to be given a refund. Following are the important parameters that you can provide for this method:
 
 | Field  | Required  |Type   | Description  |  
 |---|---|---|---|
@@ -450,7 +452,7 @@ response = client.Payment.refund_details("<merchantRefundId>")
 # Printing if the method call was SUCCESS
 print(response["resultInfo"]["code"])
 ```
-Did you get **SUCCESS** in the print statement above, if yes then the API execution has happen correctly.
+Did you get **SUCCESS** in the print statement above, if yes then the API execution has happened correctly.
 
 For details of all the request and response parameters , check our [API Documentation guide](https://www.paypay.ne.jp/opa/doc/v1.0/direct_debit#operation/getRefundDetails).
 
@@ -466,7 +468,7 @@ So you want to confirm the status of the refund, maybe because the request for t
 | nonce | Yes | string | Random generated string |
 | redirectType | No | string | Default: 'WEB_LINK' Enum: 'APP_DEEP_LINK' 'WEB_LINK' Parameter to decide whether to redirect to merchant app or merchant web application |
 | redirectUrl | Yes | string | The callback endpoint provided by client. For 'WEB_LINK' it must be HTTPS, and its domain should be in the allowed authorization callback domains |
-| referenceId | Yes | string | The id used to identify the user in merchant system. It will be stored in the PayPay db for reconsilliation purpose |
+| referenceId | Yes | string | The id used to identify the user in merchant system. It will be stored in the PayPay db for reconciliation purpose |
 | phoneNumber | No | string | The user mobile phone number |
 | deviceId | No | string | The user mobile phone device id. If it is provided, we can use it to verify the user and skip the SMS verification, so as to provide more fluent UX |
 | userAgent | No | string | The User agent of the web browser. When redirectType is 'WEB_LINK' this parameter is provided, on mobile devices PayPay tries to open the browser that the merchant website is using. |
@@ -496,7 +498,7 @@ Once the user has granted authorization, we will return the UserAuthorizationID 
 client.decode_jwt(API_SECRET, token)
 ```
 
-Did you get **SUCCESS** in the print statement above, if yes then the API execution has happen correctly.
+Did you get **SUCCESS** in the print statement above, if yes then the API execution has happened correctly.
 
 For details of all the request and response parameters , check our [API Documentation guide](https://www.paypay.ne.jp/opa/doc/v1.0/preauth_capture#operation/createAuth).
 
@@ -544,7 +546,7 @@ In order to acquire an authorization you need to create a JWT Token -
 | nonce | Yes | string | Random generated string |
 | redirectType | No | string | Default: 'WEB_LINK' Enum: 'APP_DEEP_LINK' 'WEB_LINK' Parameter to decide whether to redirect to merchant app or merchant web application |
 | redirectUrl | Yes | string | The callback endpoint provided by client. For 'WEB_LINK' it must be HTTPS, and its domain should be in the allowed authorization callback domains |
-| referenceId | Yes | string | The id used to identify the user in merchant system. It will be stored in the PayPay db for reconsilliation purpose |
+| referenceId | Yes | string | The id used to identify the user in merchant system. It will be stored in the PayPay db for reconciliation purpose |
 | phoneNumber | No | string | The user mobile phone number |
 | deviceId | No | string | The user mobile phone device id. If it is provided, we can use it to verify the user and skip the SMS verification, so as to provide more fluent UX |
 | userAgent | No | string | The User agent of the web browser. When redirectType is 'WEB_LINK' this parameter is provided, on mobile devices PayPay tries to open the browser that the merchant website is using. |
@@ -617,7 +619,7 @@ client.Pending.create_pending_payment(request_payload)
 print(response["resultInfo"]["code"])
 ```
 
-Did you get **SUCCESS** in the print statement above, if yes then the API execution has happen correctly.
+Did you get **SUCCESS** in the print statement above, if yes then the API execution has happened correctly.
 
 On successful payment, the status in response["data"]["status"] will be **COMPLETED**
 For details of all the request and response parameters , check our [API Documentation guide](https://www.paypay.ne.jp/opa/doc/v1.0/pending_payments#operation/createPayment)
@@ -640,7 +642,7 @@ print(response["resultInfo"]["code"])
 print(response["data"]["status"])
 ```
 
-Did you get **SUCCESS** in the print statement above, if yes then the API execution has happen correctly.
+Did you get **SUCCESS** in the print statement above, if yes then the API execution has happened correctly.
 
 On successful payment, the status in response["data"]["status"] will be **COMPLETED**
 For details of all the request and response parameters , check our [API Documentation guide](https://www.paypay.ne.jp/opa/doc/v1.0/pending_payments#operation/getPaymentDetails)
@@ -662,7 +664,7 @@ print(response["resultInfo"]["code"])
 print(response["data"]["status"])
 ```
 
-Did you get **SUCCESS** in the print statement above, if yes then the API execution has happen correctly.
+Did you get **SUCCESS** in the print statement above, if yes then the API execution has happened correctly.
 
 On successful payment, the status in response["data"]["status"] will be **COMPLETED**
 For details of all the request and response parameters , check our [API Documentation guide](https://www.paypay.ne.jp/opa/doc/v1.0/pending_payments#operation/cancelPendingOrder)
@@ -802,7 +804,7 @@ print(response["resultInfo"]["code"])
 print(response["data"]["status"])
 ```
 
-Did you get **SUCCESS** in the print statement above, if yes then the API execution has happen correctly.
+Did you get **SUCCESS** in the print statement above, if yes then the API execution has happened correctly.
 
 On successful payment, the status in response["data"]["status"] will be **COMPLETED**
 For details of all the request and response parameters , check our [API Documentation guide](https://www.paypay.ne.jp/opa/doc/v1.0/pending_payments#operation/getRefundDetails)
