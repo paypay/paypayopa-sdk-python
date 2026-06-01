@@ -9,7 +9,7 @@ jobs:
       CC_TEST_REPORTER_ID: 84299815950f2a6aeca847b60f89cc438aa3fbd0b0f3f92a447a0febcd9140bf
     strategy:
       matrix:
-        python-version: [3.5, 3.6, 3.7, 3.8, 3.9]
+        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13"]
 
     steps:
     - uses: actions/checkout@v2

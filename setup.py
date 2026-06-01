@@ -39,11 +39,13 @@ setup(
         "License :: OSI Approved :: Apache Software License",
 
         # List of supported Python versions
-        # Make sure that this is reflected in .travis.yml as well
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
+        # Make sure that this is reflected in build-ci.yml as well
         'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: 3.11',
+        'Programming Language :: Python :: 3.12',
+        'Programming Language :: Python :: 3.13',
 
         "Topic :: Software Development :: Libraries :: Python Modules",
     ]

@@ -15,6 +15,6 @@ class TestRefundRequestOrder(ClientTestCase):
         """Test refund request order."""
         init = mock_file('refund_request_order_payload')
         result = mock_file('refund_request_order_response')
-        url = "https://stg-api.sandbox.paypay.ne.jp/v2/refunds"
+        url = "https://apigw.sandbox.paypay.ne.jp/v2/refunds"
         responses.add(responses.POST, url, status=200, body=json.dumps(result))
         self.assertEqual(self.client.Pending.refund_payment(init), result)
