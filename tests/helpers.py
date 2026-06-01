@@ -14,7 +14,7 @@ def mock_file(filename):
 
 class ClientTestCase(unittest.TestCase):
     def setUp(self):
-        self.base_url = 'https://stg-api.sandbox.paypay.ne.jp/v2'
+        self.base_url = 'https://apigw.sandbox.paypay.ne.jp/v2'
         self.payment_id = 'fake_payment_id'
         self.refund_id = 'fake_refund_id'
         self.merchant_id = 'fake_merchant_id'
