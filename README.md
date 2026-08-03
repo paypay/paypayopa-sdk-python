@@ -64,6 +64,8 @@ import paypayopa
 
 client = paypayopa.Client(auth=(API_KEY, API_SECRET),
                          production_mode=False)
+                         
+client.set_assume_merchant("MERCHANT_ID")
 ```
 
 After setting up the client instance you can get the current PayPay SDK version using the following: 
